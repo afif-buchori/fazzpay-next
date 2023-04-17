@@ -1,11 +1,15 @@
 import AuthSide from "@/components/AuthSide";
 import Layout from "@/components/Layout";
+import { userAction } from "@/redux/slices/auth";
 import { login } from "@/utils/https/auth";
+import { getProfile } from "@/utils/https/user";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
 
 function Login() {
   const controller = useMemo(() => new AbortController(), []);
+  const dispatch = useDispatch();
   const router = useRouter();
   const [showPass, setShowPass] = useState(false);
   const [isInvalid, setInvalid] = useState(false);
@@ -24,10 +28,26 @@ function Login() {
   const handleLogin = async (event) => {
     event.preventDefault();
     setLoading(true);
+    // dispatch(userAction.loginThunk(form, controller))
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => console.log(err));
     // console.log(form);
     try {
-      const result = await login(form, controller);
-      console.log(result);
+      const resultLogin = await login(form, controller);
+      console.log(resultLogin);
+      if (resultLogin.status === 200) {
+        const resultProfile = await getProfile(
+          resultLogin.data.data.token,
+          resultLogin.data.data.id,
+          controller
+        );
+        console.log(resultProfile);
+        dispatch(userAction.loginRedux(resultLogin.data.data));
+        dispatch(userAction.getDataProfile(resultProfile.data.data));
+        handleNavigate("/home");
+      }
     } catch (error) {
       console.log(error);
       if (error.response) {
@@ -122,10 +142,13 @@ function Login() {
                 {isInvalid && msgFetch}
               </p>
               {isLoading ? (
-                <button className="btn mb-5 md:mb-10" disabled>
-                  <progress className="progress progress-secondary w-full"></progress>
+                <button className="btn loading bg-prime border-none text-white mb-5 md:mb-10">
+                  Loading...
                 </button>
               ) : (
+                // <button className="btn mb-5 md:mb-10" disabled>
+                //   <progress className="progress progress-secondary w-full"></progress>
+                // </button>
                 <button
                   onClick={handleLogin}
                   disabled={

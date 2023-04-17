@@ -128,8 +128,8 @@ function SignUp() {
                 {isInvalid && msgFetch}
               </p>
               {isLoading ? (
-                <button className="btn my-10" disabled>
-                  <progress className="progress progress-secondary w-full"></progress>
+                <button className="btn loading bg-prime border-none text-white my-10">
+                  Loading...
                 </button>
               ) : (
                 <button

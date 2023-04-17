@@ -37,7 +37,10 @@
     @apply text-prime;
   }
   .btn-prime {
-    @apply btn border-2 border-prime text-white bg-prime hover:bg-prime/80 hover:text-white hover:border-white font-bold transition-all;
+    @apply btn border-2 border-prime text-white bg-prime hover:bg-prime/80 hover:text-white hover:border-prime font-bold transition-all;
+  }
+  .btn-outline-prime {
+    @apply btn border-2 border-prime text-prime bg-white hover:bg-prime hover:text-white hover:border-prime font-bold;
   }
   /* #3652f5 */
   .btn-action {
@@ -63,5 +66,13 @@
   }
   .navside-active {
     @apply before:bg-prime after:bg-prime text-prime;
+  }
+
+  .input-pin input {
+    @apply rounded-lg border-2 w-10 md:w-16 py-2 md:py-3 font-bold text-center md:text-2xl focus:outline-2 text-prime focus:outline-prime;
+  }
+  iframe,
+  #checkdv_1 {
+    @apply absolute -z-50;
   }
 }

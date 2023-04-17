@@ -1,21 +1,73 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Layout from "@/components/Layout";
+import LayoutPrivate from "@/components/LayoutPrivate";
 import NavSide from "@/components/NavSide";
+import TopUp from "@/components/TopUp";
+import { getDashboard, getProfile } from "@/utils/https/user";
+import { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+
 function Home() {
+  const controller = useMemo(() => new AbortController(), []);
+  const userStore = useSelector((state) => state.user);
+  const token = userStore.token;
+  const userId = userStore.data.id;
+
+  const [openTopup, setOpenTopup] = useState(false);
+  const [infoContent, setInfoContent] = useState("home");
+  const handleNavside = (info) => {
+    console.log(info);
+    if (info === "topup") {
+      setOpenTopup(true);
+      setInfoContent(info);
+    }
+  };
+
+  const [dataDashboard = setDataDashboard] = useState({});
+
+  const fetching = async () => {
+    try {
+      const result = await getDashboard(token, userId, controller);
+      console.log(result);
+      // const ressprof = await getProfile(token, userId, controller);
+      // console.log(ressprof);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetching();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <Layout title="Home">
+    <LayoutPrivate title="Home">
+      <TopUp
+        isOpen={openTopup}
+        onClose={() => {
+          setOpenTopup(false);
+          setInfoContent("home");
+        }}
+      />
       <Header />
       <section className="w-full bg-slate-500/10 flex justify-center py-5 md:py-0">
         <main className="w-full max-w-notebook flex gap-7 px-4 md:px-10% md:py-7">
-          <NavSide />
+          <NavSide onClicks={handleNavside} infoContent={infoContent} />
+
           <div className="flex-1 flex flex-col gap-7">
             {/* BALANCE */}
             <span className="w-full flex bg-prime shadow rounded-3xl p-5 md:p-7">
               <div className="text-white flex flex-col justify-between">
                 <p className="text-sm md:text-base">Balance</p>
-                <h3 className="font-bold text-2xl md:text-4xl">Rp. 120.000</h3>
-                <p className="text-sm md:text-base">+62 822 1133 8805</p>
+                <h3 className="font-bold text-2xl md:text-4xl">
+                  Rp.{" "}
+                  {(userStore.data.balance &&
+                    userStore.data.balance.toLocaleString("id-ID")) ||
+                    0}
+                </h3>
+                <p className="text-sm md:text-base">
+                  {userStore.data.phone || "-"}
+                </p>
               </div>
               <div className="ml-auto flex flex-col gap-4">
                 <button className="btn-action">
@@ -93,7 +145,7 @@ function Home() {
         </main>
       </section>
       <Footer />
-    </Layout>
+    </LayoutPrivate>
   );
 }
 

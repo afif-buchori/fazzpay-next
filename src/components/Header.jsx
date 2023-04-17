@@ -1,6 +1,9 @@
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
 function Header() {
+  const userStore = useSelector((state) => state.user.data);
+
   return (
     <header className="w-full flex justify-center bg-white rounded-b-3xl shadow">
       <nav className="w-full max-w-notebook p-4 md:px-10% md:py-11 flex items-center flex-col md:flex-row">
@@ -25,8 +28,8 @@ function Header() {
             </div>
           </div>
           <div className="flex flex-col">
-            <h2 className="font-bold md:text-lg">Muchamad Afif Buchori</h2>
-            <p className="text-sm hidden md:block">+62 822 1133 8805</p>
+            <h2 className="font-bold md:text-lg">{`${userStore.firstName} ${userStore.lastName}`}</h2>
+            <p className="text-sm hidden md:block">{userStore.phone || "-"}</p>
           </div>
           <i className="bi bi-bell md:text-3xl"></i>
         </span>

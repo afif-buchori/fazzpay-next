@@ -6,7 +6,7 @@ function AuthSide() {
     <section className="hero-auth flex-1 w-full flex flex-col bg-prime md:min-h-screen text-white overflow-x-hidden">
       <div className="max-w-[720px] px-4 md:px-0 md:pl-10% py-5 md:py-20 w-full h-full flex flex-col self-end">
         <h1 className="text-2xl md:text-3xl font-extrabold">FazzPay</h1>
-        <div className="relative w-full h-20 flex">
+        <div className="relative w-full h-28 flex">
           <Image
             src="/images/display-phone2.png"
             alt="display-phone"
@@ -22,7 +22,7 @@ function AuthSide() {
             className="absolute right-[-60px] md:right-[100px] top-[-280px] md:top-0 scale-50 md:scale-90 rotate-6"
           />
         </div>
-        <div className="mt-auto md:pr-20">
+        <div className="mt-auto md:pr-20 hidden md:block">
           <h2 className="font-bold text-lg md:text-2xl my-8">
             App that Covering Banking Needs.
           </h2>
