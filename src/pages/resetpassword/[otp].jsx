@@ -1,12 +1,57 @@
 import Layout from "@/components/Layout";
 import AuthSide from "@/components/AuthSide";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useRouter } from "next/router";
+import { resetingPassword } from "@/utils/https/auth";
+import Link from "next/link";
+import PublicRoute from "@/utils/wrapper/publicRoute";
 
 function ResetPassword() {
+  const router = useRouter();
+  const controller = useMemo(() => new AbortController(), []);
+  const [showNewPass, setShowNewPass] = useState(false);
+  const [showConfirmPass, setShowConfirmPass] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [isInvalid, setInvalid] = useState(false);
+  const [isError, setError] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
+  const [msgFetch, setMsgFetch] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [ConfirmPass, setConfirmPass] = useState("");
+  const [confirmPassword, setConfirmPass] = useState("");
+
+  const handleResetPassword = async (event) => {
+    event.preventDefault();
+    if (newPassword !== confirmPassword) {
+      setInvalid(true);
+      setMsgFetch("Your password does not match.!");
+      return;
+    }
+    setLoading(true);
+    try {
+      const body = {
+        keysChangePassword: router.query.otp,
+        newPassword,
+        confirmPassword,
+      };
+      console.log(body);
+      const result = await resetingPassword(body, controller);
+      console.log(result);
+      if (result.status && result.status === 200) {
+        setLoading(false);
+        setSuccess(true);
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.status === 400) {
+        setMsgFetch(error.response.data.msg);
+        setInvalid(true);
+        setLoading(false);
+        setError(true);
+      }
+    }
+  };
+
+  // console.log(router.query);
 
   return (
     <Layout title="Forgot Password">
@@ -24,50 +69,62 @@ function ResetPassword() {
               password screens.
             </p>
             <form action="" className="flex flex-col w-full text-xl">
-              <label htmlFor="password" className="label-input mt-7 md:mt-14">
+              <label
+                htmlFor="newPassword"
+                className="label-input mt-7 md:mt-14"
+              >
                 {" "}
-                {showPass ? (
+                {showNewPass ? (
                   <i
-                    onClick={() => setShowPass(false)}
+                    onClick={() => setShowNewPass(false)}
                     className="bi bi-eye text-grey hover:text-prime cursor-pointer ml-auto"
                   ></i>
                 ) : (
                   <i
-                    onClick={() => setShowPass(true)}
+                    onClick={() => setShowNewPass(true)}
                     className="bi bi-eye-slash text-grey hover:text-prime cursor-pointer"
                   ></i>
                 )}
                 <input
-                  type={showPass ? "text" : "password"}
-                  id="password"
-                  name="password"
+                  type={showNewPass ? "text" : "password"}
+                  id="newPassword"
+                  name="newPassword"
                   value={newPassword}
-                  onChange={(event) => setNewPassword(event.target.value)}
-                  placeholder="Enter your password"
+                  onChange={(event) => {
+                    setInvalid(false);
+                    setNewPassword(event.target.value);
+                  }}
+                  placeholder="Create new password"
                   className="w-full"
                 />
                 <i className="icon-input bi bi-lock text-grey"></i>
               </label>
-              <label htmlFor="password" className="label-input mt-7 md:mt-14">
+              <label
+                htmlFor="confirmPassword"
+                className="label-input mt-7 md:mt-14"
+              >
                 {" "}
-                {showPass ? (
+                {showConfirmPass ? (
                   <i
-                    onClick={() => setShowPass(false)}
+                    onClick={() => setShowConfirmPass(false)}
                     className="bi bi-eye text-grey hover:text-prime cursor-pointer ml-auto"
                   ></i>
                 ) : (
                   <i
-                    onClick={() => setShowPass(true)}
+                    onClick={() => setShowConfirmPass(true)}
                     className="bi bi-eye-slash text-grey hover:text-prime cursor-pointer"
                   ></i>
                 )}
                 <input
-                  type={showPass ? "text" : "password"}
-                  id="password"
-                  name="password"
-                  value={ConfirmPass}
-                  onChange={(event) => setConfirmPass(event.target.value)}
-                  placeholder="Enter your password"
+                  type={showConfirmPass ? "text" : "password"}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(event) => {
+                    setInvalid(false);
+                    setConfirmPass(event.target.value);
+                  }}
+                  placeholder="Confirm new password"
                   className="w-full"
                 />
                 <i className="icon-input bi bi-lock text-grey"></i>
@@ -80,25 +137,26 @@ function ResetPassword() {
                 <button className="btn loading bg-prime border-none text-white my-10">
                   Loading...
                 </button>
+              ) : isError ? (
+                <Link href={"/resetpassword"} className="btn-prime my-10">
+                  Go Back
+                </Link>
+              ) : isSuccess ? (
+                <Link href={"/login"} className="btn-prime my-10">
+                  Go Login
+                </Link>
               ) : (
                 <button
-                  // onClick={handleSignup}
-                  disabled={isInvalid || formEmail === ""}
+                  onClick={handleResetPassword}
+                  disabled={
+                    isInvalid || newPassword === "" || confirmPassword === ""
+                  }
                   className="btn-prime my-10"
                 >
-                  Sign Up
+                  Reset Password
                 </button>
               )}
             </form>
-            <p className="text-center">
-              Already have an account? Let’s{" "}
-              <span
-                // onClick={() => router.push("/login")}
-                className="text-prime font-bold cursor-pointer"
-              >
-                Login
-              </span>
-            </p>
           </div>
         </section>
       </div>
@@ -106,4 +164,4 @@ function ResetPassword() {
   );
 }
 
-export default ResetPassword;
+export default PublicRoute(ResetPassword);

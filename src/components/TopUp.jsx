@@ -18,7 +18,7 @@ function TopUp({ isOpen, onClose }) {
   return (
     <>
       {isOpen && (
-        <section className="w-screen h-screen fixed flex justify-center items-center bg-slate-900/90 z-50">
+        <section className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center bg-slate-900/90 z-50">
           <form className="w-4/5 md:w-[560px] p-5 md:p-10 flex flex-col bg-white rounded-2xl">
             <div className="w-full flex items-center justify-between">
               <h1 className="font-bold text-2xl">Top Up</h1>

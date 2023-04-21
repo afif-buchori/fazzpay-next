@@ -71,6 +71,10 @@
   .input-pin input {
     @apply rounded-lg border-2 w-10 md:w-16 py-2 md:py-3 font-bold text-center md:text-2xl focus:outline-2 text-prime focus:outline-prime;
   }
+  .input-profile {
+    @apply text-[22px] font-bold;
+  }
+
   iframe,
   #checkdv_1 {
     @apply absolute -z-50;

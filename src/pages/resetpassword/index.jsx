@@ -1,11 +1,40 @@
 import Layout from "@/components/Layout";
 import AuthSide from "@/components/AuthSide";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { forgotPassword } from "@/utils/https/auth";
+import PublicRoute from "@/utils/wrapper/publicRoute";
 
 function ForgotPassword() {
+  const controller = useMemo(() => new AbortController(), []);
   const [isLoading, setLoading] = useState(false);
   const [isInvalid, setInvalid] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [msgFetch, setMsgFetch] = useState("");
   const [formEmail, setFormEmail] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    try {
+      const body = {
+        email: formEmail,
+        linkDirect: "http://localhost:3000/resetpassword",
+      };
+      const result = await forgotPassword(body, controller);
+      console.log(result);
+      if (result.status && result.status === 200) {
+        setMsgFetch(result.data.msg);
+        setIsSuccess(true);
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.status === 400) {
+        setMsgFetch(error.response.data.msg);
+        setInvalid(true);
+        setLoading(false);
+      }
+    }
+  };
 
   return (
     <Layout title="Forgot Password">
@@ -34,7 +63,11 @@ function ForgotPassword() {
                   id="email"
                   name="email"
                   value={formEmail}
-                  onChange={(event) => setFormEmail(event.target.value)}
+                  onChange={(event) => {
+                    setInvalid(false);
+                    setIsSuccess(false);
+                    setFormEmail(event.target.value);
+                  }}
                   placeholder="Enter your e-mail"
                   className="w-full"
                 />
@@ -48,29 +81,24 @@ function ForgotPassword() {
               <p className="w-full text-center h-5 my-5 text-secondary font-semibold">
                 {isInvalid && msgFetch}
               </p>
+              <p className="w-full text-center my-5 text-green-500 font-semibold text-lg">
+                {isSuccess && msgFetch}
+              </p>
               {isLoading ? (
                 <button className="btn loading bg-prime border-none text-white my-10">
                   Loading...
                 </button>
               ) : (
                 <button
-                  // onClick={handleSignup}
+                  type="submit"
+                  onClick={handleSubmit}
                   disabled={isInvalid || formEmail === ""}
                   className="btn-prime my-10"
                 >
-                  Sign Up
+                  Confirm
                 </button>
               )}
             </form>
-            <p className="text-center">
-              Already have an account? Let’s{" "}
-              <span
-                // onClick={() => router.push("/login")}
-                className="text-prime font-bold cursor-pointer"
-              >
-                Login
-              </span>
-            </p>
           </div>
         </section>
       </div>
@@ -78,4 +106,4 @@ function ForgotPassword() {
   );
 }
 
-export default ForgotPassword;
+export default PublicRoute(ForgotPassword);

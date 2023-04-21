@@ -3,6 +3,8 @@ import Layout from "@/components/Layout";
 import { userAction } from "@/redux/slices/auth";
 import { login } from "@/utils/https/auth";
 import { getProfile } from "@/utils/https/user";
+import PublicRoute from "@/utils/wrapper/publicRoute";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -46,7 +48,7 @@ function Login() {
         console.log(resultProfile);
         dispatch(userAction.loginRedux(resultLogin.data.data));
         dispatch(userAction.getDataProfile(resultProfile.data.data));
-        handleNavigate("/home");
+        handleNavigate("/dashboard");
       }
     } catch (error) {
       console.log(error);
@@ -135,9 +137,12 @@ function Login() {
                   }`}
                 ></i>
               </label>
-              <a href="" className="text-sm text-end mt-4 mb-7 md:mb-14">
+              <Link
+                href={"/resetpassword"}
+                className="text-sm w-fit ml-auto mt-4 mb-7 md:mb-14 hover:text-prime"
+              >
                 Forgot Password?
-              </a>
+              </Link>
               <p className="w-full text-center h-5 mb-8 text-secondary font-semibold">
                 {isInvalid && msgFetch}
               </p>
@@ -176,4 +181,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default PublicRoute(Login);

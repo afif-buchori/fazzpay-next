@@ -1,6 +1,7 @@
 import AuthSide from "@/components/AuthSide";
 import Layout from "@/components/Layout";
 import { register } from "@/utils/https/auth";
+import PublicRoute from "@/utils/wrapper/publicRoute";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 
@@ -163,4 +164,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default PublicRoute(SignUp);

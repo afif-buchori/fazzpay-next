@@ -5,6 +5,7 @@ import PinField from "react-pin-field";
 import { useSelector } from "react-redux";
 import { changePin } from "@/utils/https/auth";
 import { useRouter } from "next/router";
+import PrivateRoute from "@/utils/wrapper/privateRoute";
 
 function SuccessPin() {
   const router = useRouter();
@@ -117,4 +118,4 @@ function Createpin() {
   );
 }
 
-export default Createpin;
+export default PrivateRoute(Createpin);
