@@ -2,9 +2,11 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Layout from "@/components/Layout";
 import NavSide from "@/components/NavSide";
-import { getDashboard, getProfile } from "@/utils/https/user";
+import DashbBalance from "@/components/Pages/DashbBalance";
+import DashbDiagram from "@/components/Pages/DashbDiagram";
+import DashbHistory from "@/components/Pages/DashbHistory";
 import PrivateRoute from "@/utils/wrapper/privateRoute";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 
 function Dashboard() {
@@ -13,23 +15,6 @@ function Dashboard() {
   const token = userStore.token;
   const userId = userStore.data.id;
 
-  // const [dataDashboard, setDataDashboard] = useState({});
-
-  const fetching = async () => {
-    try {
-      const result = await getDashboard(token, userId, controller);
-      console.log(result);
-      // const ressprof = await getProfile(token, userId, controller);
-      // console.log(ressprof);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetching();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <Layout title="Dashboard">
       <Header />
@@ -40,19 +25,12 @@ function Dashboard() {
           <div className="flex-1 flex flex-col gap-7">
             {/* BALANCE */}
             <span className="w-full flex bg-prime shadow rounded-3xl p-5 md:p-7">
-              <div className="text-white flex flex-col justify-between">
-                <p className="text-sm md:text-base">Balance</p>
-                <h3 className="font-bold text-2xl md:text-4xl">
-                  Rp.{" "}
-                  {(userStore.data.balance &&
-                    userStore.data.balance.toLocaleString("id-ID")) ||
-                    0}
-                </h3>
-                <p className="text-sm md:text-base">
-                  {userStore.data.phone || "-"}
-                </p>
-              </div>
-              <div className="ml-auto flex flex-col gap-4">
+              <DashbBalance
+                userId={userId}
+                token={token}
+                controller={controller}
+              />
+              <div className="min-w-[165px] flex flex-col gap-4">
                 <button className="btn-action">
                   <i className="bi bi-arrow-up mr-2"></i>Transfer
                 </button>
@@ -64,64 +42,19 @@ function Dashboard() {
             <div className="w-full h-full flex flex-col md:flex-row gap-7">
               {/* DIAGRAM */}
               <span className="flex-1 rounded-3xl h-full bg-white shadow p-5 md:p-7">
-                <div className="flex w-full h-80 bg-slate-700"></div>
+                <DashbDiagram
+                  userId={userId}
+                  token={token}
+                  controller={controller}
+                />
               </span>
               {/* HISTORY */}
               <span className="flex-1 rounded-3xl flex flex-col bg-white shadow p-5 md:p-7">
-                <div className="w-full flex justify-between items-center">
+                <div className="w-full flex justify-between items-center mb-4">
                   <h3 className="font-bold">Transaction History</h3>
                   <p className="btn btn-link btn-xs">See all</p>
                 </div>
-                <section className="w-full flex flex-col gap-7 mt-5">
-                  {/* user1 */}
-                  <div className="w-full flex gap-4 items-center">
-                    <span className="w-14 h-14 border rounded-xl"></span>
-                    <div className="flex flex-col justify-between">
-                      <h4 className="font-bold">Samuel Suhi</h4>
-                      <p className="text-[#7A7886]">Accept</p>
-                    </div>
-                    <p className="text-green-500 font-bold ml-auto">
-                      {" "}
-                      +Rp 50.000
-                    </p>
-                  </div>
-                  {/* user2 */}
-                  <div className="w-full flex gap-4 items-center">
-                    <span className="w-14 h-14 border rounded-xl"></span>
-                    <div className="flex flex-col justify-between">
-                      <h4 className="font-bold">Netflix</h4>
-                      <p className="text-[#7A7886]">Transfer</p>
-                    </div>
-                    <p className="text-secondary font-bold ml-auto">
-                      {" "}
-                      -Rp 149.000
-                    </p>
-                  </div>
-                  {/* user3 */}
-                  <div className="w-full flex gap-4 items-center">
-                    <span className="w-14 h-14 border rounded-xl"></span>
-                    <div className="flex flex-col justify-between">
-                      <h4 className="font-bold">Christine Mar...</h4>
-                      <p className="text-[#7A7886]">Accept</p>
-                    </div>
-                    <p className="text-green-500 font-bold ml-auto">
-                      {" "}
-                      +Rp 150.000
-                    </p>
-                  </div>
-                  {/* user4 */}
-                  <div className="w-full flex gap-4 items-center">
-                    <span className="w-14 h-14 border rounded-xl"></span>
-                    <div className="flex flex-col justify-between">
-                      <h4 className="font-bold">Robert Chandler</h4>
-                      <p className="text-[#7A7886]">Tou Up</p>
-                    </div>
-                    <p className="text-secondary font-bold ml-auto">
-                      {" "}
-                      -Rp 249.000
-                    </p>
-                  </div>
-                </section>
+                <DashbHistory token={token} controller={controller} />
               </span>
             </div>
           </div>

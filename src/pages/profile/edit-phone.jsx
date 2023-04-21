@@ -2,16 +2,47 @@ import Layout from "@/components/Layout";
 import Header from "@/components/Header";
 import NavSide from "@/components/NavSide";
 import Footer from "@/components/Footer";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import PrivateRoute from "@/utils/wrapper/privateRoute";
+import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { editProfile } from "@/utils/https/user";
+import { userAction } from "@/redux/slices/auth";
 
 function EditPhone() {
-  const [isInvalid, setInvalid] = useState(false);
+  const dispatch = useDispatch();
+  const controller = useMemo(() => new AbortController(), []);
+  const userState = useSelector((state) => state.user);
   const [isLoading, setLoading] = useState(false);
-  const [phoneValue, setPhoneVal] = useState("");
+  const [isSuccess, setSuccess] = useState(false);
+  const [phoneValue, setPhoneVal] = useState(userState.data.phone);
 
   const onChangeInput = (event) => {
-    setPhoneVal(event.target.value);
+    setSuccess(false);
+    const { value } = event.target;
+    const regex = /^[0-9]+$/;
+    if (regex.test(value) || value === "") {
+      setPhoneVal(value);
+    }
+  };
+
+  const handleUpdatePhone = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    const token = userState.token;
+    const userId = userState.data.id;
+    const form = { noTelp: phoneValue };
+    try {
+      const result = await editProfile(token, userId, form, controller);
+      console.log(result);
+      if (result.status && result.status === 200) {
+        dispatch(userAction.editPhoneUser(phoneValue));
+        setSuccess(true);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Layout title="Personal Info">
@@ -31,9 +62,7 @@ function EditPhone() {
             <form action="" className="w-full md:w-3/5 px-5 md:px-0">
               <label
                 htmlFor="phone"
-                className={`label-input ${
-                  isInvalid && "border-secondary"
-                } mt-7 md:mt-14`}
+                className="label-input mt-7 md:mt-14 font-bold text-xl px-2"
               >
                 <input
                   type="text"
@@ -42,15 +71,51 @@ function EditPhone() {
                   value={phoneValue}
                   onChange={onChangeInput}
                   placeholder="Enter your phone number"
-                  className="w-full"
+                  className="w-full font-medium focus:outline-none"
                 />
-                <p className="font-bold">+62</p>
-                <i
-                  className={`icon-input bi bi-telephone ${
-                    isInvalid ? "text-secondary" : "text-grey"
-                  }`}
-                ></i>
+                +62
+                <i className="icon-input bi bi-telephone text-grey"></i>
               </label>
+              <p className="w-full text-xl font-semibold text-green-500 text-center h-10 mt-2 flex items-center justify-center">
+                {isSuccess && "Update phone number successfully"}
+              </p>
+              {isLoading ? (
+                <div className="w-full flex my-5 gap-10">
+                  <button className="flex-1 btn loading bg-prime border-prime text-white">
+                    Loading
+                  </button>
+                </div>
+              ) : (
+                <div className="w-full flex my-5 gap-10">
+                  {userState.data.phone !== phoneValue ? (
+                    <button
+                      onClick={() => setPhoneVal(userState.data.phone)}
+                      className="flex-1 btn-outline-prime"
+                    >
+                      Reset
+                    </button>
+                  ) : (
+                    <Link
+                      href={"/profile/personal-info"}
+                      className="flex-1 btn-outline-prime"
+                    >
+                      {" "}
+                      {isSuccess ? "Go Back" : "Cancel"}
+                    </Link>
+                  )}
+                  {!isSuccess && (
+                    <button
+                      onClick={handleUpdatePhone}
+                      disabled={
+                        phoneValue === "" || phoneValue === userState.data.phone
+                      }
+                      className="flex-1 btn-prime"
+                    >
+                      Edit Phone Nomber
+                    </button>
+                  )}
+                </div>
+              )}
             </form>
           </div>
         </main>

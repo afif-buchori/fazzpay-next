@@ -3,12 +3,18 @@ import Header from "@/components/Header";
 import NavSide from "@/components/NavSide";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useMemo, useState } from "react";
 import PrivateRoute from "@/utils/wrapper/privateRoute";
+import { editProfile } from "@/utils/https/user";
+import { userAction } from "@/redux/slices/auth";
 
 function PersonalInfo() {
+  const dispatch = useDispatch();
+  const controller = useMemo(() => new AbortController(), []);
   const userStore = useSelector((state) => state.user);
+  const [isSuccess, setSuccess] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [isCanSave, setCanSave] = useState(false);
   const dataUser = userStore.data;
   const [form, setForm] = useState({
@@ -28,8 +34,36 @@ function PersonalInfo() {
       setCanSave(true);
     }
   };
-  const handleEditProfile = () => {
-    console.log(form);
+  const handleEditProfile = async () => {
+    // console.log(form);
+    setLoading(true);
+    const token = userStore.token;
+    const userId = userStore.data.id;
+    try {
+      const result = await editProfile(token, userId, form, controller);
+      console.log(result);
+      if (result.status && result.status === 200) {
+        dispatch(userAction.editNameUser(form));
+        setLoading(false);
+        setCanSave(false);
+        handleShowSuccess();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleCancel = () => {
+    setForm({
+      firstName: dataUser.firstName,
+      lastName: dataUser.lastName,
+    });
+    setCanSave(false);
+  };
+  const handleShowSuccess = () => {
+    setSuccess(true);
+    setTimeout(() => {
+      setSuccess(false);
+    }, 3000);
   };
   return (
     <Layout title="Personal Info">
@@ -38,8 +72,8 @@ function PersonalInfo() {
         <main className="w-full max-w-notebook flex gap-7 px-4 md:px-10% md:py-7">
           <NavSide titlePage="profile" />
 
-          <div className="flex-1 flex flex-col items-center rounded-3xl bg-white shadow py-10">
-            <div className="w-full md:max-w-[400px] px-5 mr-auto">
+          <div className="flex-1 flex flex-col items-center rounded-3xl bg-white shadow py-9">
+            <div className="w-full md:max-w-[70%] px-5 mr-auto">
               <h1 className="font-bold text-lg mb-5">Personal Information</h1>
               <p className="text-grey mb-6">
                 We got your personal information from the sign up proccess. If
@@ -48,7 +82,7 @@ function PersonalInfo() {
               </p>
             </div>
             <span className="w-full flex flex-col p-5 gap-5">
-              <div className="w-full flex flex-col rounded-xl shadow px-3 py-2">
+              <div className="w-full flex flex-col rounded-xl shadow-md px-4 py-2">
                 <label htmlFor="firstName">First Name</label>
                 <input
                   type="text"
@@ -61,7 +95,7 @@ function PersonalInfo() {
                 />
               </div>
 
-              <div className="w-full flex flex-col rounded-xl shadow px-3 py-2">
+              <div className="w-full flex flex-col rounded-xl shadow-md px-4 py-2">
                 <label htmlFor="lastName">Last Name</label>
                 <input
                   type="text"
@@ -73,7 +107,7 @@ function PersonalInfo() {
                   placeholder="Your last name"
                 />
               </div>
-              <div className="w-full flex flex-col rounded-xl shadow px-3 py-2">
+              <div className="w-full flex flex-col rounded-xl shadow-md px-4 py-2">
                 <label htmlFor="email">Verified E-mail</label>
                 <input
                   type="text"
@@ -84,7 +118,7 @@ function PersonalInfo() {
                   className="input-profile text-grey"
                 />
               </div>
-              <div className="w-full flex flex-col rounded-xl shadow px-3 py-2">
+              <div className="w-full flex flex-col rounded-xl shadow-md px-4 py-2">
                 <label htmlFor="phone">Phone Number</label>
                 <div className="w-full flex gap-4">
                   <input
@@ -104,19 +138,39 @@ function PersonalInfo() {
                 </div>
               </div>
             </span>
+            {isSuccess && (
+              <p className="text-lg text-green-500 font-semibold mt-auto">
+                Update Data Successfully
+              </p>
+            )}
             {isCanSave && (
-              <div>
-                <button
-                  disabled={
-                    (dataUser.firstName === form.firstName &&
-                      dataUser.lastName === form.lastName) ||
-                    (form.firstName === "" && form.lastName === "")
-                  }
-                  onClick={handleEditProfile}
-                  className="btn-prime"
-                >
-                  Save Change
-                </button>
+              <div className="w-1/2 flex justify-center gap-10">
+                {isLoading ? (
+                  <button className="btn loading bg-prime border-prime text-white flex-1">
+                    Loading
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      onClick={handleCancel}
+                      className="btn-outline-prime flex-1"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      disabled={
+                        (dataUser.firstName === form.firstName &&
+                          dataUser.lastName === form.lastName) ||
+                        form.firstName === "" ||
+                        form.lastName === ""
+                      }
+                      onClick={handleEditProfile}
+                      className="btn-prime shadow-md flex-1"
+                    >
+                      Save Change
+                    </button>
+                  </>
+                )}
               </div>
             )}
           </div>

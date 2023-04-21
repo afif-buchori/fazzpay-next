@@ -57,6 +57,25 @@ const userSlice = createSlice({
         },
       };
     },
+    editNameUser: (prevState, action) => {
+      return {
+        ...prevState,
+        data: {
+          ...prevState.data,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
+        },
+      };
+    },
+    editPhoneUser: (prevState, action) => {
+      return {
+        ...prevState,
+        data: {
+          ...prevState.data,
+          phone: action.payload,
+        },
+      };
+    },
   },
   extraReducers: {
     [loginThunk.pending]: (prevState) => {
