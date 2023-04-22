@@ -76,6 +76,9 @@ const userSlice = createSlice({
         },
       };
     },
+    logoutRedux: () => {
+      return initialState;
+    },
   },
   extraReducers: {
     [loginThunk.pending]: (prevState) => {

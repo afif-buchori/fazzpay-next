@@ -12,6 +12,22 @@ export const login = (body, controller) => {
   return axios.post(url, body, { signal: controller.signal });
 };
 
+export const logout = (token, controller) => {
+  const url = `${baseUrl}auth/logout`;
+  return axios.post(url, {
+    signal: controller.signal,
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
+export const getPin = (token, pin, controller) => {
+  const url = `${baseUrl}user/pin/${pin}`;
+  return axios.get(url, {
+    signal: controller.signal,
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
 export const changePin = (userId, token, pin, controller) => {
   const url = `${baseUrl}user/pin/${userId}`;
   return axios.patch(

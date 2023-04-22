@@ -2,11 +2,16 @@ import Layout from "@/components/Layout";
 import Header from "@/components/Header";
 import NavSide from "@/components/NavSide";
 import Footer from "@/components/Footer";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import PrivateRoute from "@/utils/wrapper/privateRoute";
+import { editPassword } from "@/utils/https/user";
+import { useSelector } from "react-redux";
 
 function ChangePassword() {
+  const controller = useMemo(() => new AbortController(), []);
+  const userState = useSelector((state) => state.user);
+  const userId = userState.data.id;
   const [isLoading, setLoading] = useState(false);
   const [isInvalid, setInvalid] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
@@ -18,14 +23,33 @@ function ChangePassword() {
   const [newPassword, setNewPass] = useState("");
   const [confirmPassword, setConfirmPass] = useState("");
 
-  const handleConfirmChange = (event) => {
+  const handleConfirmChange = async (event) => {
     event.preventDefault();
     if (newPassword !== confirmPassword) {
       setInvalid(true);
       setMsgFetch("Your new password does not match.!");
+      return;
     }
+    setLoading(true);
+    const token = userState.token;
     const body = { oldPassword, newPassword, confirmPassword };
-    console.log(body);
+    // console.log(body);
+    try {
+      const result = await editPassword(token, userId, body, controller);
+      console.log(result);
+      if (result.status && result.status === 200) {
+        setMsgFetch("Your password has been successfully changed");
+        setSuccess(true);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response.status && error.response.status === 400) {
+        setInvalid(true);
+        setMsgFetch(error.response.data.msg);
+        setLoading(false);
+      }
+    }
   };
   return (
     <Layout title="Change Password">
@@ -48,7 +72,9 @@ function ChangePassword() {
             >
               <label
                 htmlFor="newPassword"
-                className="label-input mt-7 md:mt-10"
+                className={`label-input ${
+                  isInvalid && "border-secondary"
+                } mt-7 md:mt-10`}
               >
                 {showOldPass ? (
                   <i
@@ -68,17 +94,24 @@ function ChangePassword() {
                   value={oldPassword}
                   onChange={(event) => {
                     setInvalid(false);
+                    setSuccess(false);
                     setOldPass(event.target.value);
                   }}
                   placeholder="Current password"
                   className="w-full"
                 />
-                <i className="icon-input bi bi-lock text-grey"></i>
+                <i
+                  className={`icon-input bi bi-lock ${
+                    isInvalid ? "text-secondary" : "text-grey"
+                  }`}
+                ></i>
               </label>
 
               <label
                 htmlFor="newPassword"
-                className="label-input mt-7 md:mt-10"
+                className={`label-input ${
+                  isInvalid && "border-secondary"
+                } mt-7 md:mt-10`}
               >
                 {showNewPass ? (
                   <i
@@ -98,16 +131,23 @@ function ChangePassword() {
                   value={newPassword}
                   onChange={(event) => {
                     setInvalid(false);
+                    setSuccess(false);
                     setNewPass(event.target.value);
                   }}
                   placeholder="New password"
                   className="w-full"
                 />
-                <i className="icon-input bi bi-lock text-grey"></i>
+                <i
+                  className={`icon-input bi bi-lock ${
+                    isInvalid ? "text-secondary" : "text-grey"
+                  }`}
+                ></i>
               </label>
               <label
                 htmlFor="confirmPassword"
-                className="label-input mt-7 md:mt-10"
+                className={`label-input ${
+                  isInvalid && "border-secondary"
+                } mt-7 md:mt-10`}
               >
                 {showConfirmPass ? (
                   <i
@@ -127,23 +167,32 @@ function ChangePassword() {
                   value={confirmPassword}
                   onChange={(event) => {
                     setInvalid(false);
+                    setSuccess(false);
                     setConfirmPass(event.target.value);
                   }}
                   placeholder="Reapet new password"
                   className="w-full"
                 />
-                <i className="icon-input bi bi-lock text-grey"></i>
+                <i
+                  className={`icon-input bi bi-lock ${
+                    isInvalid ? "text-secondary" : "text-grey"
+                  }`}
+                ></i>
               </label>
 
-              <p className="w-full text-center h-5 my-5 text-secondary font-semibold">
-                {isInvalid && msgFetch}
+              <p
+                className={`w-full text-center h-5 my-5 ${
+                  isSuccess ? "text-green-500" : "text-secondary"
+                } font-semibold`}
+              >
+                {(isSuccess && msgFetch) || (isInvalid && msgFetch)}
               </p>
               {isLoading ? (
                 <button className="btn loading bg-prime border-none text-white">
                   Loading...
                 </button>
               ) : isSuccess ? (
-                <Link href={"/home"} className="btn-prime">
+                <Link href={`/profile/${userId}`} className="btn-prime">
                   Go Back
                 </Link>
               ) : (

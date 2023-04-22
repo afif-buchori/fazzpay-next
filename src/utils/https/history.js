@@ -9,3 +9,11 @@ export const getHistories = (token, controller) => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+export const postTopup = (token, body, controller) => {
+  const url = `${baseUrl}transaction/top-up`;
+  return axios.post(url, body, {
+    signal: controller.signal,
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};

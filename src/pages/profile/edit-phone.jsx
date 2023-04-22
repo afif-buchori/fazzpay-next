@@ -34,7 +34,7 @@ function EditPhone() {
     const form = { noTelp: phoneValue };
     try {
       const result = await editProfile(token, userId, form, controller);
-      console.log(result);
+      // console.log(result);
       if (result.status && result.status === 200) {
         dispatch(userAction.editPhoneUser(phoneValue));
         setSuccess(true);
@@ -77,7 +77,7 @@ function EditPhone() {
                 <i className="icon-input bi bi-telephone text-grey"></i>
               </label>
               <p className="w-full text-xl font-semibold text-green-500 text-center h-10 mt-2 flex items-center justify-center">
-                {isSuccess && "Update phone number successfully"}
+                {isSuccess && "Your phone number has been successfully changed"}
               </p>
               {isLoading ? (
                 <div className="w-full flex my-5 gap-10">

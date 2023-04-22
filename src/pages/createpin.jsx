@@ -85,7 +85,7 @@ function Createpin() {
                     <PinField
                       length={6}
                       onChange={handlePinChange}
-                      type="numeric"
+                      type="password"
                       pattern="\d"
                       inputMode="numeric"
                       autoSelect={true}

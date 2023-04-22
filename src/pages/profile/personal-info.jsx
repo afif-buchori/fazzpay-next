@@ -41,7 +41,7 @@ function PersonalInfo() {
     const userId = userStore.data.id;
     try {
       const result = await editProfile(token, userId, form, controller);
-      console.log(result);
+      // console.log(result);
       if (result.status && result.status === 200) {
         dispatch(userAction.editNameUser(form));
         setLoading(false);

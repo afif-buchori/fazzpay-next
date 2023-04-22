@@ -2,19 +2,22 @@ import Layout from "@/components/Layout";
 import Header from "@/components/Header";
 import NavSide from "@/components/NavSide";
 import Footer from "@/components/Footer";
-import { PinField } from "react-pin-field";
-import { useState } from "react";
 import PrivateRoute from "@/utils/wrapper/privateRoute";
+import ChngeCheckPin from "@/components/Pages/ChngeCheckPin";
+import { useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import ChngeEditPin from "@/components/Pages/ChngeEditPin";
 
 function ChangePin() {
-  const [isInvalid, setInvalid] = useState(false);
-  const [pin, setPin] = useState("");
-
-  const handlePinChange = (value) => {
-    setPin(value);
-    setInvalid(false);
+  const controller = useMemo(() => new AbortController(), []);
+  const userState = useSelector((state) => state.user);
+  const dataAuth = {
+    token: userState.token,
+    userId: userState.data.id,
+    controller,
   };
-
+  const [showCheckPin, setShowCheck] = useState(true);
+  const [showEditPin, setShowEdit] = useState(false);
   return (
     <Layout title="Change PIN">
       <Header />
@@ -26,22 +29,27 @@ function ChangePin() {
             <div className="w-full md:max-w-[400px] px-5 mr-auto">
               <h1 className="font-bold text-lg mb-5">Change PIN</h1>
               <p className="text-grey mb-6">
-                Enter your current 6 digits Fazzpay PIN below to continue to the
-                next steps.
+                {(showCheckPin &&
+                  "Enter your current 6 digits Fazzpay PIN below to continue to the next steps.") ||
+                  (showEditPin &&
+                    "Type your new 6 digits security PIN to use in Fazzpay.")}
               </p>
             </div>
-            <form action="" className="w-full md:w-3/5 px-5 md:px-0">
-              <div className="input-pin flex justify-between my-10">
-                <PinField
-                  length={6}
-                  onChange={handlePinChange}
-                  type="numeric"
-                  pattern="\d"
-                  inputMode="numeric"
-                  autoSelect={true}
-                />
-              </div>
-            </form>
+            <ChngeCheckPin
+              dataAuth={dataAuth}
+              isShow={showCheckPin}
+              onClose={() => {
+                setShowCheck(false);
+                setShowEdit(true);
+              }}
+            />
+            <ChngeEditPin
+              dataAuth={dataAuth}
+              isShow={showEditPin}
+              onClose={() => {
+                setShowEdit(false);
+              }}
+            />
           </div>
         </main>
       </section>
