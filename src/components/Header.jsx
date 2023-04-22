@@ -1,18 +1,32 @@
+import { contentAction } from "@/redux/slices/content";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Header() {
+  const dispatch = useDispatch();
   const userStore = useSelector((state) => state.user.data);
 
+  const handleToggle = () => {
+    dispatch(contentAction.handleToggel());
+  };
+
+  const imgUrl =
+    "https://res.cloudinary.com/dd1uwz8eu/image/upload/v1666604839/" +
+    userStore.image;
+  const defaultImg =
+    "https://res.cloudinary.com/dd1uwz8eu/image/upload/v1666604839/Fazzpay/example_qx2pf0.png";
   return (
-    <div className="w-full bg-slate-500/10">
+    <div className="w-full bg-slate-500/10 relative z-40">
       <header className="w-full flex justify-center bg-white rounded-b-3xl shadow">
         <nav className="w-full max-w-notebook md:min-h-[16vh] p-4 md:px-10% md:py-0 flex items-center flex-col md:flex-row">
           <div className="mr-auto flex w-full md:w-fit items-center">
             <h1 className="text-prime font-extrabold text-2xl mr-auto">
               FazzPay
             </h1>
-            <button className="btn btn-square btn-sm btn-outline md:hidden">
+            <button
+              onClick={handleToggle}
+              className="btn btn-square btn-sm btn-outline md:hidden"
+            >
               <i className="bi bi-list text-2xl"></i>
             </button>
           </div>
@@ -20,8 +34,8 @@ function Header() {
             <div className="avatar">
               <div className="w-7 md:w-14 mask mask-squircle">
                 <Image
-                  src="/images/users.webp"
-                  alt="display-phone"
+                  src={imgUrl || "/images/users.webp"}
+                  alt="display-profile"
                   width="50"
                   height="50"
                   className="w-full"

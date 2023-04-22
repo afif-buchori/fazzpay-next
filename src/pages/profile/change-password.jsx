@@ -68,7 +68,7 @@ function ChangePassword() {
             </div>
             <form
               action=""
-              className="flex flex-col w-full max-w-[430px] text-xl"
+              className="flex flex-col w-full max-w-[430px] px-5 md:px-0 text-xl"
             >
               <label
                 htmlFor="newPassword"

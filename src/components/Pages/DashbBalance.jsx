@@ -5,7 +5,6 @@ import { getProfile } from "@/utils/https/user";
 function DashbBalance({ userId, token, controller }) {
   const [isLoading, setLoading] = useState(true);
   const [dataBalance, setDataBalance] = useState({});
-  const tess = 1000000;
   const fetching = async () => {
     setLoading(true);
     try {
@@ -30,10 +29,10 @@ function DashbBalance({ userId, token, controller }) {
       ) : (
         <div className="text-white flex flex-col justify-between mr-auto">
           <p className="text-sm md:text-base">Balance</p>
-          <h3 className="font-bold text-2xl md:text-4xl">
+          <h3 className="font-bold text-4xl">
             Rp. {dataBalance.balance.toLocaleString("id-ID")}
           </h3>
-          <p className="text-sm md:text-base">{dataBalance.noTelp}</p>
+          <p className="text-base mb-4 md:mb-0">{dataBalance.noTelp}</p>
         </div>
       )}
     </>

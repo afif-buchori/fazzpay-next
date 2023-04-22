@@ -13,7 +13,15 @@ function Profile() {
   const userStore = useSelector((state) => state.user);
   const [showLogout, setShowLogout] = useState(false);
   const dataUser = userStore.data;
+  const [imgValue, setImgVal] = useState();
+
+  const onChangeImg = (event) => {
+    setImgVal(event.target.files[0]);
+  };
   // console.log(userStore);
+  const imgUrl =
+    "https://res.cloudinary.com/dd1uwz8eu/image/upload/v1666604839/" +
+    dataUser.image;
   return (
     <Layout title="Profile">
       <Header />
@@ -30,7 +38,12 @@ function Profile() {
               <div className="avatar">
                 <div className="w-20 mask mask-squircle">
                   <Image
-                    src="/images/users.webp"
+                    src={
+                      imgUrl || "/images/users.webp"
+                      // imgValue === ""
+                      //   ? imgUrl || "/images/users.webp"
+                      //   : URL.createObjectURL(imgValue)
+                    }
                     alt="display-user"
                     width="50"
                     height="50"
@@ -45,13 +58,14 @@ function Profile() {
                   type="file"
                   name="image"
                   id="inputImage"
+                  onChange={onChangeImg}
                   className="hidden"
                 />
               </label>
               <h2 className="text-xl font-bold">{`${dataUser.firstName} ${dataUser.lastName}`}</h2>
               <p className="mt-4 mb-8">{dataUser.phone}</p>
             </span>
-            <div className="w-full md:w-3/5 flex flex-col gap-4">
+            <div className="w-full px-5 md:px-0 md:w-3/5 flex flex-col gap-4">
               <Link
                 href={"/profile/personal-info"}
                 className="btn btn-ghost bg-slate-400/20 capitalize font-bold flex justify-between"

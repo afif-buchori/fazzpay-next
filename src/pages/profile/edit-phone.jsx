@@ -45,7 +45,7 @@ function EditPhone() {
     }
   };
   return (
-    <Layout title="Personal Info">
+    <Layout title="Change Phone Number">
       <Header />
       <section className="w-full md:min-h-[72vh] bg-slate-500/10 flex justify-center py-5 md:py-0">
         <main className="w-full max-w-notebook flex gap-7 px-4 md:px-10% md:py-7">
