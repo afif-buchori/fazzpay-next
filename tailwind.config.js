@@ -14,6 +14,9 @@ module.exports = {
       colors: { prime: "#6379F4", grey: "#A9A9A9" },
       margin: { "10%": "10%" },
       padding: { "10%": "10%" },
+      screens: {
+        md: "770px",
+      },
     },
   },
   plugins: [require("daisyui")],

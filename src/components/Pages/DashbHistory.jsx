@@ -8,9 +8,10 @@ function DashbHistory({ token, controller }) {
   const [dataHistory, setDataHistory] = useState([]);
   const fetching = async () => {
     setLoading(true);
+    const params = { page: 1, limit: 4, filter: "WEEK" };
     try {
-      const result = await getHistories(token, controller);
-      // console.log(result.data.data);
+      const result = await getHistories(token, params, controller);
+      // console.log(result.data);
       // const dataOnsuccess = result.data.data.filter(
       //   (item) => item.status === "success"
       // );

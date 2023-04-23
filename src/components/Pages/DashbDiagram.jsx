@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Loaders from "../Loaders";
 import { getDashboard, getProfile } from "@/utils/https/user";
+import BarChart from "./BarChart";
 
 function DashbDiagram({ userId, token, controller }) {
   const [isLoading, setLoading] = useState(true);
@@ -27,7 +28,7 @@ function DashbDiagram({ userId, token, controller }) {
       {isLoading ? (
         <Loaders />
       ) : (
-        <div className="w-full h-full">
+        <div className="w-full h-full flex flex-col">
           <div className="w-full flex">
             <span className="flex-1 flex flex-col">
               <i className="bi bi-arrow-down-short text-4xl text-green-500"></i>
@@ -39,11 +40,17 @@ function DashbDiagram({ userId, token, controller }) {
             <span className="flex-1 flex flex-col items-end">
               <i className="bi bi-arrow-up-short text-4xl text-secondary"></i>
               <p className="text-grey">Expense</p>
-              <p className="text-lg font-semibold">
+              <p className="text-lg font-bold">
                 Rp. {dataDiagram.totalExpense.toLocaleString("id-ID")}
               </p>
             </span>
           </div>
+          <span className="w-full h-full justify-center items-center mt-7">
+            <BarChart
+              listExpense={dataDiagram.listExpense}
+              listIncome={dataDiagram.listIncome}
+            />
+          </span>
         </div>
       )}
     </>

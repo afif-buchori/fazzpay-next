@@ -182,8 +182,8 @@ function Transfer() {
               >
                 Prev
               </button>
-              <button className="btn btn-info btn-outline btn-sm">
-                Page {metaPage}
+              <button className="btn btn-info btn-outline btn-sm font-bold">
+                Page {metaPage} / {totalPage}
               </button>
               <button
                 onClick={() => handlePagination("next")}

@@ -16,7 +16,7 @@ function Login() {
   const [showPass, setShowPass] = useState(false);
   const [isInvalid, setInvalid] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const [msgFetch, setMsgFetch] = useState("");
+  const [msgFetch, setMsgFetch] = useState("Server is Maintenance");
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -61,9 +61,9 @@ function Login() {
         if (error.response.status === 404) {
           setMsgFetch(error.response.data.msg);
         }
-        setInvalid(true);
-        setLoading(false);
       }
+      setInvalid(true);
+      setLoading(false);
     }
   };
   const handleNavigate = (to) => {

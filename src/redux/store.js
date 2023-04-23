@@ -12,7 +12,11 @@ import storage from "redux-persist/lib/storage";
 import reducer from "./slices";
 import { configureStore } from "@reduxjs/toolkit";
 
-const persistConfig = { key: "FazzPay-ku", storage, blacklist: [""] };
+const persistConfig = {
+  key: "FazzPay-ku",
+  storage,
+  blacklist: ["content"],
+};
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 

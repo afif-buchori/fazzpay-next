@@ -51,7 +51,7 @@
   }
 
   .navside-content {
-    @apply w-64 text-lg font-semibold py-10 flex flex-col gap-10 rounded-3xl bg-white shadow;
+    @apply w-60 text-lg font-semibold py-10 flex flex-col gap-10 rounded-3xl bg-white shadow;
   }
   .nav-side {
     @apply hover:text-prime cursor-pointer h-8 flex items-center gap-2;
