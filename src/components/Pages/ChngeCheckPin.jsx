@@ -37,7 +37,7 @@ function ChngeCheckPin({ dataAuth, isShow, onClose }) {
   return (
     <>
       {isShow && (
-        <form action="" className="w-full md:w-3/5 px-5 md:px-0">
+        <form action="" className="w-full px-5 md:px-0">
           <div className="input-pin flex justify-between my-10">
             <PinField
               length={6}

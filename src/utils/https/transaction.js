@@ -11,9 +11,17 @@ export const getHistories = (token, controller) => {
 };
 
 export const getUsers = (token, params, controller) => {
-  const url = `${baseUrl}user?page=${params.page}&limit=${params.limit}&search=${params.search}`;
+  const url = `${baseUrl}user?page=${params.page}&limit=${params.limit}&search=${params.search}&sort=${params.sort}`;
   // console.log(url);
   return axios.get(url, {
+    signal: controller.signal,
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
+export const postTransfer = (token, body, controller) => {
+  const url = `${baseUrl}transaction/transfer`;
+  return axios.post(url, body, {
     signal: controller.signal,
     headers: { Authorization: `Bearer ${token}` },
   });

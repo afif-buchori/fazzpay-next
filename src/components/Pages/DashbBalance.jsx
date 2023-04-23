@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import Loaders from "../Loaders";
 import { getProfile } from "@/utils/https/user";
+import { useDispatch } from "react-redux";
+import { userAction } from "@/redux/slices/auth";
 
 function DashbBalance({ userId, token, controller }) {
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(true);
   const [dataBalance, setDataBalance] = useState({});
   const fetching = async () => {
@@ -11,6 +14,7 @@ function DashbBalance({ userId, token, controller }) {
       const result = await getProfile(token, userId, controller);
       // console.log(result.data.data);
       setDataBalance(result.data.data);
+      dispatch(userAction.editBalanceRedux(result.data.data.balance));
       setLoading(false);
     } catch (error) {
       console.log(error);

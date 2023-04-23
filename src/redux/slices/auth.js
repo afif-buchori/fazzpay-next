@@ -76,6 +76,15 @@ const userSlice = createSlice({
         },
       };
     },
+    editBalanceRedux: (prevState, action) => {
+      return {
+        ...prevState,
+        data: {
+          ...prevState.data,
+          balance: action.payload,
+        },
+      };
+    },
     logoutRedux: () => {
       return initialState;
     },

@@ -35,14 +35,16 @@ function ChangePin() {
                     "Type your new 6 digits security PIN to use in Fazzpay.")}
               </p>
             </div>
-            <ChngeCheckPin
-              dataAuth={dataAuth}
-              isShow={showCheckPin}
-              onClose={() => {
-                setShowCheck(false);
-                setShowEdit(true);
-              }}
-            />
+            <div className="w-full md:w-3/5">
+              <ChngeCheckPin
+                dataAuth={dataAuth}
+                isShow={showCheckPin}
+                onClose={() => {
+                  setShowCheck(false);
+                  setShowEdit(true);
+                }}
+              />
+            </div>
             <ChngeEditPin
               dataAuth={dataAuth}
               isShow={showEditPin}

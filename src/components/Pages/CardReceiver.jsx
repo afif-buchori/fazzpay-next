@@ -13,7 +13,7 @@ function CardReceiver(props) {
       <div className="avatar">
         <div className="w-16 mask mask-squircle">
           <Image
-            src={imgUrl || "/images/users.webp"}
+            src={props.img ? imgUrl : "/images/users.webp"}
             alt="display-profile"
             width={50}
             height={50}
