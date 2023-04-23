@@ -38,16 +38,18 @@ function Login() {
     // console.log(form);
     try {
       const resultLogin = await login(form, controller);
-      console.log(resultLogin);
+      // console.log(resultLogin);
       if (resultLogin.status === 200) {
         const resultProfile = await getProfile(
           resultLogin.data.data.token,
           resultLogin.data.data.id,
           controller
         );
-        console.log(resultProfile);
+        // console.log(resultProfile);
         dispatch(userAction.loginRedux(resultLogin.data.data));
         dispatch(userAction.getDataProfile(resultProfile.data.data));
+        if (resultLogin.data.data.pin === null)
+          return handleNavigate("/createpin");
         handleNavigate("/dashboard");
       }
     } catch (error) {

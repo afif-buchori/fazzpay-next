@@ -34,7 +34,7 @@ function Header() {
             <div className="avatar">
               <div className="w-7 md:w-14 mask mask-squircle">
                 <Image
-                  src={imgUrl || "/images/users.webp"}
+                  src={userStore.image ? imgUrl : "/images/users.webp"}
                   alt="display-profile"
                   width="50"
                   height="50"

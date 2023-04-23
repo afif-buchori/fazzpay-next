@@ -33,3 +33,15 @@ export const editPassword = (token, userId, body, controller) => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+export const editImage = (token, userId, file, controller) => {
+  const url = `${baseUrl}user/image/${userId}`;
+  const formData = new FormData();
+  if (file !== "") {
+    formData.append("image", file);
+  }
+  return axios.patch(url, formData, {
+    signal: controller.signal,
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};

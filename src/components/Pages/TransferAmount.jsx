@@ -3,11 +3,12 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 function TransferToUser({ isShow, onClose }, props) {
+  console.log(props);
   const balance = useSelector((state) => state.user.data.balance);
   const [isInvalid, setInvalid] = useState(false);
   const [msgInvalid, setMsgInvalid] = useState("Input over balance, ");
-  const [amount, setAmount] = useState(props.amount);
-  const [notes, setNotes] = useState(props.note);
+  const [amount, setAmount] = useState(props.amount || "");
+  const [notes, setNotes] = useState(props.note || "");
 
   const onChangeAmount = (event) => {
     const { value } = event.target;
@@ -68,7 +69,7 @@ function TransferToUser({ isShow, onClose }, props) {
           <button
             type="submit"
             onClick={handleSubmit}
-            disabled={amount < 1 || amount === ""}
+            disabled={isInvalid || amount < 1 || amount === ""}
             className="mt-5 btn-prime w-full md:w-80"
           >
             Continue

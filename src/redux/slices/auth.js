@@ -67,6 +67,15 @@ const userSlice = createSlice({
         },
       };
     },
+    editImageUser: (prevState, action) => {
+      return {
+        ...prevState,
+        data: {
+          ...prevState.data,
+          image: action.payload,
+        },
+      };
+    },
     editPhoneUser: (prevState, action) => {
       return {
         ...prevState,
@@ -83,6 +92,12 @@ const userSlice = createSlice({
           ...prevState.data,
           balance: action.payload,
         },
+      };
+    },
+    createPinRedux: (prevState, action) => {
+      return {
+        ...prevState,
+        data: { ...prevState.data, pin: action.payload },
       };
     },
     logoutRedux: () => {

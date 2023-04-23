@@ -4,19 +4,45 @@ import NavSide from "@/components/NavSide";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PrivateRoute from "@/utils/wrapper/privateRoute";
 import Logout from "@/components/Logout";
+import { editImage, getProfile } from "@/utils/https/user";
+import { userAction } from "@/redux/slices/auth";
 
 function Profile() {
+  const dispatch = useDispatch();
+  const controller = useMemo(() => new AbortController(), []);
   const userStore = useSelector((state) => state.user);
-  const [showLogout, setShowLogout] = useState(false);
   const dataUser = userStore.data;
-  const [imgValue, setImgVal] = useState();
+  const [showLogout, setShowLogout] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [imgValue, setImgVal] = useState("");
+  const [displayImg, setDisplayImg] = useState("");
 
   const onChangeImg = (event) => {
     setImgVal(event.target.files[0]);
+    setDisplayImg(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const handleUpdateImage = async () => {
+    setLoading(true);
+    const token = userStore.token;
+    const userId = userStore.data.id;
+    try {
+      const result = await editImage(token, userId, imgValue, controller);
+      // console.log(result);
+      if (result.status && result.status === 200) {
+        const getData = await getProfile(token, userId, controller);
+        dispatch(userAction.getDataProfile(getData.data.data));
+        setDisplayImg("");
+        setImgVal("");
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   // console.log(userStore);
   const imgUrl =
@@ -39,10 +65,11 @@ function Profile() {
                 <div className="w-20 mask mask-squircle">
                   <Image
                     src={
-                      imgUrl || "/images/users.webp"
-                      // imgValue === ""
-                      //   ? imgUrl || "/images/users.webp"
-                      //   : URL.createObjectURL(imgValue)
+                      imgValue
+                        ? displayImg
+                        : dataUser.image
+                        ? imgUrl
+                        : "/images/users.webp"
                     }
                     alt="display-user"
                     width="50"
@@ -51,17 +78,45 @@ function Profile() {
                   />
                 </div>
               </div>
-              <label htmlFor="inputImage" className="mt-3 mb-6 cursor-pointer">
-                <i className="bi bi-pencil mr-4"></i>
-                Edit
-                <input
-                  type="file"
-                  name="image"
-                  id="inputImage"
-                  onChange={onChangeImg}
-                  className="hidden"
-                />
-              </label>
+              <div className="flex w-4/5 md:w-1/3 justify-center items-center gap-4 mt-3 mb-6">
+                {imgValue !== "" ? (
+                  isLoading ? (
+                    <button className="btn btn-sm loading bg-prime border-prime text-white px-5">
+                      Loading
+                    </button>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => {
+                          setImgVal("");
+                          setDisplayImg("");
+                        }}
+                        className="flex-1 btn btn-outline btn-info btn-sm"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={handleUpdateImage}
+                        className="flex-1 btn btn-info btn-sm"
+                      >
+                        Save Change
+                      </button>
+                    </>
+                  )
+                ) : (
+                  <label htmlFor="inputImage" className="cursor-pointer">
+                    <i className="bi bi-pencil mr-4"></i>
+                    Edit
+                    <input
+                      type="file"
+                      name="image"
+                      id="inputImage"
+                      onChange={onChangeImg}
+                      className="hidden"
+                    />
+                  </label>
+                )}
+              </div>
               <h2 className="text-xl font-bold">{`${dataUser.firstName} ${dataUser.lastName}`}</h2>
               <p className="mt-4 mb-8">{dataUser.phone}</p>
             </span>

@@ -2,8 +2,11 @@ import { PinField } from "react-pin-field";
 import { useState } from "react";
 import Link from "next/link";
 import { changePin } from "@/utils/https/auth";
+import { useDispatch } from "react-redux";
+import { userAction } from "@/redux/slices/auth";
 
 function ChngeEditPin({ dataAuth, isShow, onClose }) {
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const [isInvalid, setInvalid] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
@@ -27,6 +30,7 @@ function ChngeEditPin({ dataAuth, isShow, onClose }) {
       );
       console.log(result);
       if (result.status && result.status === 200) {
+        dispatch(userAction.createPinRedux(dataAuth.userId));
         setLoading(false);
         setMsgFetch("Your pin has been successfully changed");
         setSuccess(true);

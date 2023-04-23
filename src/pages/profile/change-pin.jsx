@@ -4,13 +4,15 @@ import NavSide from "@/components/NavSide";
 import Footer from "@/components/Footer";
 import PrivateRoute from "@/utils/wrapper/privateRoute";
 import ChngeCheckPin from "@/components/Pages/ChngeCheckPin";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import ChngeEditPin from "@/components/Pages/ChngeEditPin";
 
 function ChangePin() {
   const controller = useMemo(() => new AbortController(), []);
   const userState = useSelector((state) => state.user);
+  const isPin = userState.data.pin;
+  console.log(isPin);
   const dataAuth = {
     token: userState.token,
     userId: userState.data.id,
@@ -18,6 +20,14 @@ function ChangePin() {
   };
   const [showCheckPin, setShowCheck] = useState(true);
   const [showEditPin, setShowEdit] = useState(false);
+
+  useEffect(() => {
+    if (isPin === null) {
+      setShowCheck(false);
+      setShowEdit(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Layout title="Change PIN">
       <Header />
