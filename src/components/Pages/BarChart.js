@@ -55,7 +55,7 @@ const BarChart = ({ listExpense, listIncome }) => {
   return (
     <div className="w-full">
       <h2 className="text-sm text-center mb-4">Weekly Expenses and Income</h2>
-      <canvas ref={chartContainer} />
+      <canvas ref={chartContainer} className="w-full" />
     </div>
   );
 };

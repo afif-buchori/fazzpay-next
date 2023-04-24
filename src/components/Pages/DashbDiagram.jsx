@@ -45,7 +45,7 @@ function DashbDiagram({ userId, token, controller }) {
               </p>
             </span>
           </div>
-          <span className="w-full h-full justify-center items-center mt-7">
+          <span className="w-full h-full justify-center items-center mt-6">
             <BarChart
               listExpense={dataDiagram.listExpense}
               listIncome={dataDiagram.listIncome}

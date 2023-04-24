@@ -1,13 +1,63 @@
 import Footer from "@/components/Footer";
+import Comentary from "@/components/Pages/Comentary";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Landing() {
   const router = useRouter();
+  const [slide, setSlide] = useState(1);
+
+  const handleSlide = (info) => {
+    if (info === "left") {
+      if (slide === 1) return setSlide(3);
+      setSlide(slide - 1);
+    }
+    if (info === "right") {
+      if (slide === data.length) return setSlide(1);
+      setSlide(slide + 1);
+    }
+  };
   const handleNavigate = (to) => {
     router.push(to);
   };
+
+  const slideClasses = [
+    "",
+    "right-0",
+    "right-[100%]",
+    "right-[200%]",
+    "right-[300%]",
+  ];
+  const data = [
+    {
+      fullName: "Sherina Chaw",
+      image: "",
+      comment:
+        "“I use this app since 2 years ago and this is the best app that I’ve ever use in my entire life”",
+    },
+    {
+      fullName: "Jessica Mera",
+      image: "",
+      comment:
+        "“I use Zwallet to manage all financial needs. It’s super easy to use and it’s 100% free app”",
+    },
+    {
+      fullName: "Robert Chandler",
+      image: "",
+      comment:
+        "“Since I’m using this app, I’m not going to move to another similar app. Thank you Zwallet!”",
+    },
+    {
+      fullName: "Alex Hansinburg",
+      image: "",
+      comment:
+        "“This is the most outstanding app that I’ve ever try in my live, this app is such an amazing masterpiece and it’s suitable for you who is bussy with their bussiness and must transfer money to another person aut there. Just try this app and see the power!”",
+    },
+  ];
+
+  // console.log(slide);
   return (
     <>
       <Head>
@@ -213,24 +263,33 @@ export default function Landing() {
             We have some great features from the application and it’s totally
             free to use by all users around the world.
           </p>
-          <div className="w-full flex gap-10 items-center justify-between relative">
-            <button className="btn btn-outline bg-white text-prime border-prime border-2 px-2 py-1 rounded-2xl hover:bg-prime hover:text-white hover:border-prime absolute top-32 -left-4 md:static">
+          <div className="w-full flex gap-10 items-center justify-center md:justify-between relative">
+            <button
+              onClick={() => handleSlide("left")}
+              className="btn btn-outline bg-white text-prime border-prime border-2 px-2 py-1 rounded-2xl hover:bg-prime hover:text-white hover:border-prime absolute top-32 -left-4 z-30 md:static"
+            >
               <i className="bi bi-arrow-left-short text-4xl"></i>
             </button>
 
-            <div className="w-full p-4 md:p-10 flex flex-col gap-5 items-center rounded-2xl shadow border border-slate-500/10">
-              <span className="w-32 h-32 border rounded-3xl"></span>
-              <h3 className="font-bold md:text-2xl">Alex Hansinburg</h3>
-              <p className="md:mb-8">Designer</p>
-              <p>
-                “This is the most outstanding app that I’ve ever try in my live,
-                this app is such an amazing masterpiece and it’s suitable for
-                you who is bussy with their bussiness and must transfer money to
-                another person aut there. Just try this app and see the power!”
-              </p>
-            </div>
+            <section className="w-[80vw] md:w-[55vw] md:max-w-[800px] h-[430px] flex overflow-x-hidden">
+              <div
+                className={`w-fit flex relative ${slideClasses[slide]} sliders py-1`}
+              >
+                {data.map((item, idx) => (
+                  <Comentary
+                    key={idx}
+                    name={item.fullName}
+                    image={item.image}
+                    comment={item.comment}
+                  />
+                ))}
+              </div>
+            </section>
 
-            <button className="btn btn-outline bg-white text-prime border-prime border-2 px-2 py-1 rounded-2xl hover:bg-prime hover:text-white hover:border-prime absolute top-32 -right-4 md:static">
+            <button
+              onClick={() => handleSlide("right")}
+              className="btn btn-outline bg-white text-prime border-prime border-2 px-2 py-1 rounded-2xl hover:bg-prime hover:text-white hover:border-prime absolute top-32 -right-4 z-30 md:static"
+            >
               <i className="bi bi-arrow-right-short text-4xl"></i>
             </button>
           </div>

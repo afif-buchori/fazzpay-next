@@ -103,7 +103,7 @@ function Transfer() {
                     disabled={metaSort === ""}
                     className={`font-bold ${metaSort === "" && "text-grey"}`}
                   >
-                    <a>Reset</a>
+                    <a>{metaSort === "" ? "---" : "Reset"}</a>
                   </li>
                   <li
                     onClick={() => setMetaSort("firstName ASC")}

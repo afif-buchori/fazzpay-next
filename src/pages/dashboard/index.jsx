@@ -46,9 +46,9 @@ function Dashboard() {
                 </button>
               </div>
             </span>
-            <div className="w-full h-full flex flex-col md:flex-row gap-7">
+            <div className="w-full h-full flex flex-col xl:flex-row gap-7">
               {/* DIAGRAM */}
-              <span className="w-full md:w-[52%] rounded-3xl h-full bg-white shadow p-5 md:py-8">
+              <span className="w-full xl:w-[52%] rounded-3xl h-full bg-white shadow p-5 md:py-6">
                 <DashbDiagram
                   userId={userId}
                   token={token}
@@ -56,7 +56,7 @@ function Dashboard() {
                 />
               </span>
               {/* HISTORY */}
-              <span className="w-full md:w-[48%] rounded-3xl flex flex-col bg-white shadow p-5 md:p-6">
+              <span className="w-full xl:w-[48%] rounded-3xl flex flex-col bg-white shadow p-5 md:p-6">
                 <div className="w-full flex justify-between items-center mb-4">
                   <h3 className="font-bold">Transaction History</h3>
                   <Link href={"/history"} className="btn btn-link btn-sm">

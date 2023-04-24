@@ -84,7 +84,7 @@ function History() {
                         onClick={() => setFilter("")}
                         className={filter === "" && "text-grey"}
                       >
-                        <a>Reset</a>
+                        <a>{filter === "" ? "---" : "Reset"}</a>
                       </li>
                       <li
                         onClick={() => setFilter("WEEK")}

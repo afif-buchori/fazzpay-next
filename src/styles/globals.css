@@ -16,14 +16,18 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center 120px;
-    background-image: url("../../public/images/vector-wave-land.png");
+    background-image: url("/images/vector-wave-land.png");
   }
   .hero-auth {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center 120px;
-    background-image: url("../../public/images/vector-wave.png");
+    background-image: url("/images/vector-wave.png");
   }
+  .sliders {
+    transition: 1s ease-in-out;
+  }
+
   .label-input {
     @apply flex gap-4 border-b-2 py-2 border-grey/70 flex-row-reverse;
   }
@@ -51,13 +55,13 @@
   }
 
   .navside-content {
-    @apply w-60 text-lg font-semibold py-10 flex flex-col gap-10 rounded-3xl bg-white shadow;
+    @apply w-72 text-lg font-semibold py-10 flex flex-col gap-10 rounded-3xl bg-white shadow;
   }
   .nav-side {
     @apply hover:text-prime cursor-pointer h-8 flex items-center gap-2;
   }
   .nav-side::before {
-    @apply hover:bg-prime h-8 w-2 rounded-r-md transition-all bg-white mr-4;
+    @apply hover:bg-prime h-8 w-2 rounded-r-md transition-all bg-white mr-8;
     content: "";
   }
   .nav-side::after {
