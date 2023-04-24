@@ -37,7 +37,21 @@ function ChangePin() {
 
           <div className="flex-1 flex flex-col items-center rounded-3xl bg-white shadow py-10">
             <div className="w-full md:max-w-[400px] px-5 mr-auto">
-              <h1 className="font-bold text-lg mb-5">Change PIN</h1>
+              <div className="breadcrumbs font-bold text-lg">
+                <ul>
+                  <li className={showEditPin && "text-grey"}>
+                    <a
+                      onClick={() => {
+                        setShowEdit(false);
+                        setShowCheck(true);
+                      }}
+                    >
+                      Check PIN
+                    </a>
+                  </li>
+                  {showEditPin && <li>Update PIN</li>}
+                </ul>
+              </div>
               <p className="text-grey mb-6">
                 {(showCheckPin &&
                   "Enter your current 6 digits Fazzpay PIN below to continue to the next steps.") ||

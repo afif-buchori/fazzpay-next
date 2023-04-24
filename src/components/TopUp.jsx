@@ -8,6 +8,7 @@ function TopUp({ isOpen, onClose }) {
   const [isLoading, setLoading] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [isInvalid, setInvalid] = useState(false);
+  const [canClose, setCanClose] = useState(false);
   const [linkPayment, setLinkPay] = useState("");
   const [valueTopup, setValueTopup] = useState("");
 
@@ -40,7 +41,7 @@ function TopUp({ isOpen, onClose }) {
 
   const handleNavigateLink = () => {
     window.open(linkPayment, "_blank");
-    onClose();
+    setCanClose(true);
   };
 
   return (
@@ -52,9 +53,15 @@ function TopUp({ isOpen, onClose }) {
               <p className="text-3xl font-bold text-center my-14">
                 Please Pay Top Up
               </p>
-              <button onClick={handleNavigateLink} className="btn-prime">
-                Open link for pay
-              </button>
+              {canClose ? (
+                <button onClick={() => onClose()} className="btn-prime">
+                  Close
+                </button>
+              ) : (
+                <button onClick={handleNavigateLink} className="btn-prime">
+                  Open link for pay
+                </button>
+              )}
             </div>
           ) : (
             <form className="w-4/5 md:w-[560px] p-5 md:p-10 flex flex-col bg-white rounded-2xl">

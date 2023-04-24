@@ -4,6 +4,15 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <meta
+          name="description"
+          content="Fazzpay adalah aplikasi e-wallet yang aman dan mudah digunakan untuk berbagai kebutuhan finansial Anda."
+        />
+        <meta
+          name="keywords"
+          content="aplikasi e-wallet, Fazzpay, transaksi digital, keamanan finansial, kemudahan transaksi, mudah digunakan"
+        />
+        <link rel="canonical" href="https://fazzpay-next.vercel.app" />
         <link rel="icon" href="/digital-wallet.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
