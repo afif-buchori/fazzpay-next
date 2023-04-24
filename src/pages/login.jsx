@@ -74,7 +74,7 @@ function Login() {
       <div className="w-full flex flex-col md:flex-row">
         <AuthSide />
         <section className="flex-1 w-full mb-14 md:mb-0">
-          <div className="flex flex-col px-4 md:px-0 md:pl-10 md:pr-10% py-5 md:py-20 w-full max-w-[720px]">
+          <div className="flex flex-col justify-center items-center px-4 md:px-0 md:pl-10 md:pr-10% py-5 md:py-20 w-full max-w-[720px]">
             <h2 className="text-lg md:text-2xl font-bold md:leading-9 mb-4 md:mb-10">
               Start Accessing Banking Needs With All Devices and All Platforms
               With 30.000+ Users

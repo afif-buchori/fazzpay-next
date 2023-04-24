@@ -18,7 +18,8 @@ function ForgotPassword() {
     try {
       const body = {
         email: formEmail,
-        linkDirect: "http://localhost:3000/resetpassword",
+        // linkDirect: "http://localhost:3000/resetpassword",
+        linkDirect: "https://fazzpay-next.vercel.app/resetpassword",
       };
       const result = await forgotPassword(body, controller);
       console.log(result);

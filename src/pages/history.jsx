@@ -54,11 +54,11 @@ function History() {
   }, [filter, metaPage]);
 
   return (
-    <Layout title="Transfer Money">
+    <Layout title="History">
       <Header />
       <section className="w-full md:min-h-[72vh] bg-slate-500/10 flex justify-center py-5 md:py-0">
         <main className="w-full max-w-notebook flex gap-7 px-4 md:px-10% md:py-7">
-          <NavSide titlePage="transfer" />
+          <NavSide titlePage="dashboard" />
 
           <div className="flex-1 flex flex-col items-center rounded-3xl bg-white shadow px-5 md:px-8 py-7">
             {isLoading ? (
