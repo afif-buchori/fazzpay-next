@@ -31,7 +31,7 @@ function NavSide(props) {
       <ul
         className={`navside-content fixed ${
           isToggle ? "top-[6.5rem]" : "top-[-100%]"
-        } right-4 md:static flex z-30 transition-all`}
+        } right-4 md:static flex z-30`}
       >
         <li
           onClick={() => {
@@ -88,6 +88,7 @@ function NavSide(props) {
         </li>
       </ul>
       <div
+        onClick={handleToggleClose}
         className={`w-screen h-screen fixed ${
           isToggle ? "opacity-60 z-10" : "opacity-0 -z-10"
         } top-0 left-0 bg-black transition-opacity md:hidden`}

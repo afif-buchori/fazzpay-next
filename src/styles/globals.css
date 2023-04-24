@@ -56,6 +56,7 @@
 
   .navside-content {
     @apply w-72 text-lg font-semibold py-10 flex flex-col gap-10 rounded-3xl bg-white shadow;
+    transition: 0.8s ease-in-out;
   }
   .nav-side {
     @apply hover:text-prime cursor-pointer h-8 flex items-center gap-2;
