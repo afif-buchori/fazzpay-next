@@ -36,7 +36,7 @@ function CardHistory(props) {
           <h1 className="md:text-lg font-bold">{props.fullName}</h1>
           <div className="text-grey text-sm md:text-base flex justify-between w-full md:w-fit gap-5">
             <p className="font-bold uppercase">{props.type}</p>
-            <p className="italic">{formattedDate}</p>
+            <p className="italic text-sm md:text-base">{formattedDate}</p>
           </div>
         </span>
       </div>

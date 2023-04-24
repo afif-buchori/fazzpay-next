@@ -39,7 +39,9 @@ function DashbHistory({ token, controller }) {
               <div className="avatar">
                 <div className="w-7 md:w-14 mask mask-squircle">
                   <Image
-                    src={`${imgUrl}${item.image}`}
+                    src={
+                      item.image ? imgUrl + item.image : "/images/users.webp"
+                    }
                     alt="display-profile"
                     width={50}
                     height={50}

@@ -64,7 +64,6 @@ export default function Landing() {
     },
   ];
 
-  // console.log(slide);
   return (
     <>
       <Head>
@@ -92,7 +91,7 @@ export default function Landing() {
 
       <section className="bg-contain bg-no-repeat bg-[center_280px] md:bg-[center_130px] bg-prime bg-[url('/images/vector-wave-land.png')] flex flex-col items-center w-full">
         <div className="w-full max-w-notebook px-10% gap-20 flex flex-col text-white">
-          <div className="flex flex-col md:flex-row mt-28 md:mt-10 overflow-hidden">
+          <div className="flex flex-col md:max-h-[96vh] md:flex-row mt-28 md:mt-10 overflow-hidden">
             <div className="flex-1 flex flex-col justify-center">
               <h1 className="text-2xl md:text-6xl font-extrabold md:leading-[93px]">
                 Awesomre App For Saving Time.
@@ -105,7 +104,7 @@ export default function Landing() {
                 Try it Free
               </button>
             </div>
-            <div className="flex-1 relative pt-96 md:pt-0">
+            <div className="flex-1 relative md:top-[-90px] pt-96 md:pt-0">
               <Image
                 src="/images/display-phone.png"
                 alt="display-phone"
