@@ -8,7 +8,7 @@ function Comentary(props) {
       <div className="avatar">
         <div className="w-32 mask mask-squircle">
           <Image
-            src={"/images/user1.png"}
+            src={props.image}
             alt="display-profile"
             width={50}
             height={50}

@@ -31,7 +31,7 @@ function Footer() {
           <p className="m-auto md:m-0 mb-3 md:mb-0 md:mr-auto">
             2020 FazzPay. All right reserved.
           </p>
-          <div className="flex justify-between w-full md:w-fit gap-9">
+          <div className="flex justify-between w-full md:w-fit md:gap-9 text-sm md:text-base">
             <p>+62 5637 8882 9901</p>
             <p>contact@fazzpay.com</p>
           </div>

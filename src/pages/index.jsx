@@ -11,14 +11,21 @@ export default function Landing() {
 
   const handleSlide = (info) => {
     if (info === "left") {
-      if (slide === 1) return setSlide(3);
-      setSlide(slide - 1);
+      if (slide === 1) setSlide(data.length);
+      else setSlide(slide - 1);
     }
     if (info === "right") {
-      if (slide === data.length) return setSlide(1);
-      setSlide(slide + 1);
+      if (slide === data.length) setSlide(1);
+      else setSlide(slide + 1);
     }
   };
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     handleSlide("right");
+  //   }, 3000);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [slide]);
+
   const handleNavigate = (to) => {
     router.push(to);
   };
@@ -33,25 +40,25 @@ export default function Landing() {
   const data = [
     {
       fullName: "Sherina Chaw",
-      image: "",
+      image: "/images/userDua.png",
       comment:
         "“I use this app since 2 years ago and this is the best app that I’ve ever use in my entire life”",
     },
     {
       fullName: "Jessica Mera",
-      image: "",
+      image: "/images/userTiga.png",
       comment:
         "“I use Zwallet to manage all financial needs. It’s super easy to use and it’s 100% free app”",
     },
     {
       fullName: "Robert Chandler",
-      image: "",
+      image: "/images/userEmpat.png",
       comment:
         "“Since I’m using this app, I’m not going to move to another similar app. Thank you Zwallet!”",
     },
     {
       fullName: "Alex Hansinburg",
-      image: "",
+      image: "/images/userSatu.png",
       comment:
         "“This is the most outstanding app that I’ve ever try in my live, this app is such an amazing masterpiece and it’s suitable for you who is bussy with their bussiness and must transfer money to another person aut there. Just try this app and see the power!”",
     },
@@ -83,7 +90,7 @@ export default function Landing() {
         </nav>
       </header>
 
-      <section className="hero-land bg-prime flex flex-col items-center w-full">
+      <section className="bg-contain bg-no-repeat bg-[center_280px] md:bg-[center_130px] bg-[url('/images/vector-wave-land.png')] bg-prime flex flex-col items-center w-full">
         <div className="w-full max-w-notebook px-10% gap-20 flex flex-col text-white">
           <div className="flex flex-col md:flex-row mt-28 md:mt-10 overflow-hidden">
             <div className="flex-1 flex flex-col justify-center">
@@ -118,28 +125,28 @@ export default function Landing() {
             alt="logo-partner"
             width="174"
             height="120"
-            className="w-[131px] h-[76px]"
+            className="w-1/2 md:w-[131px] md:h-[76px]"
           />
           <Image
             src="/images/logo-dropbox.png"
             alt="logo-partner"
             width="174"
             height="120"
-            className="w-[174px] h-[120px]"
+            className="w-1/2 md:w-[174px] md:h-[120px]"
           />
           <Image
             src="/images/logo-hnm.png"
             alt="logo-partner"
             width="174"
             height="120"
-            className="w-[174px] h-[120px]"
+            className="w-1/2 md:w-[174px] md:h-[120px]"
           />
           <Image
             src="/images/logo-airbnb.png"
             alt="logo-partner"
             width="174"
             height="120"
-            className="w-[174px] h-[120px]"
+            className="w-1/2 md:w-[174px] md:h-[120px]"
           />
         </div>
       </section>

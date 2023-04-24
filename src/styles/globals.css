@@ -12,7 +12,7 @@
 }
 
 @layer components {
-  .hero-land {
+  /* .hero-land {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center 120px;
@@ -23,7 +23,7 @@
     background-repeat: no-repeat;
     background-position: center 120px;
     background-image: url("/images/vector-wave.png");
-  }
+  } */
   .sliders {
     transition: 1s ease-in-out;
   }
