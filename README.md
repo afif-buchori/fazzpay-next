@@ -53,11 +53,11 @@ This project is licensed under the MIT license. Please read `LICENSE` for more i
 
 ## Documentation
 
-<img width="600" src="./images/screencapture/landing-page.png" alt="display-documentation">
-<img width="600" src="./images/screencapture/login-page.png" alt="display-documentation">
-<img width="600" src="./images/screencapture/dashboard-page.png" alt="display-documentation">
-<img width="600" src="./images/screencapture/profile-page.png" alt="display-documentation">
-<img width="600" src="./images/screencapture/transaction-find-user.png" alt="display-documentation">
-<img width="600" src="./images/screencapture/transaction-to-user.png" alt="display-documentation">
-<img width="600" src="./images/screencapture/transaction-issuccess.png" alt="display-documentation">
-<img width="600" src="./images/screencapture/topup.png" alt="display-documentation">
+<img width="600" src="./public/images/screencapture/landing-page.png" alt="display-documentation">
+<img width="600" src="./public/images/screencapture/login-page.png" alt="display-documentation">
+<img width="600" src="./public/images/screencapture/dashboard-page.png" alt="display-documentation">
+<img width="600" src="./public/images/screencapture/profile-page.png" alt="display-documentation">
+<img width="600" src="./public/images/screencapture/transaction-find-user.png" alt="display-documentation">
+<img width="600" src="./public/images/screencapture/transaction-to-user.png" alt="display-documentation">
+<img width="600" src="./public/images/screencapture/transaction-issuccess.png" alt="display-documentation">
+<img width="600" src="./public/images/screencapture/topup.png" alt="display-documentation">
