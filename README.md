@@ -14,7 +14,11 @@
 
 ## FazzPay E-Wallet
 
-FazzPay E-Wallet is a web-based application for storing and managing electronic money. This application is built using Next.js, Redux, axios, Lodash, Chart.js, React-Pin-Field, Tailwind, and DaisyUI.
+FazzPay E-Wallet is a web-based application for storing and managing electronic money.
+
+## Build With
+This application is built using React.js, Next.js, Redux, axios, Lodash, Chart.js, React-Pin-Field, Tailwind, and DaisyUI.
+<img src="https://skillicons.dev/icons?i=react,next,javascript,html,css,redux,tailwind,daisyui,vercel" />
 
 ## Features
 
