@@ -48,7 +48,7 @@ function Dashboard() {
             </span>
             <div className="w-full h-full flex flex-col xl:flex-row gap-7">
               {/* DIAGRAM */}
-              <span className="w-full xl:w-[52%] rounded-3xl h-full bg-white shadow p-5 md:py-6">
+              <span className="w-full xl:w-[52%] rounded-3xl h-full bg-white shadow p-5">
                 <DashbDiagram
                   userId={userId}
                   token={token}

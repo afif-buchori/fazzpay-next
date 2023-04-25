@@ -21,7 +21,7 @@ function SuccessPin() {
         Your PIN was successfully created and you can now access all the
         features in FazzPay.
       </p>
-      <button onClick={() => router.push("/home")} className="btn-prime">
+      <button onClick={() => router.push("/dashboard")} className="btn-prime">
         Go To Dashboard
       </button>
     </div>

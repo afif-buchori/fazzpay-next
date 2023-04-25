@@ -73,7 +73,7 @@ function EditPhone() {
                   placeholder="Enter your phone number"
                   className="w-full font-medium focus:outline-none"
                 />
-                +62
+                {/* +62 */}
                 <i className="icon-input bi bi-telephone text-grey"></i>
               </label>
               <p className="w-full text-xl font-semibold text-green-500 text-center h-10 mt-2 flex items-center justify-center">

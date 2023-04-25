@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Loaders from "../Loaders";
-import { getDashboard, getProfile } from "@/utils/https/user";
+import { getDashboard } from "@/utils/https/user";
 import BarChart from "./BarChart";
 
 function DashbDiagram({ userId, token, controller }) {
@@ -45,7 +45,7 @@ function DashbDiagram({ userId, token, controller }) {
               </p>
             </span>
           </div>
-          <span className="w-full h-full justify-center items-center mt-6">
+          <span className="w-full h-full justify-center items-center mt-5">
             <BarChart
               listExpense={dataDiagram.listExpense}
               listIncome={dataDiagram.listIncome}

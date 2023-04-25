@@ -32,3 +32,32 @@ If you would like to contribute to this project, please send a pull request to t
 ## License
 
 This project is licensed under the MIT license. Please read `LICENSE` for more information.
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="#">
+    <img src="./public/images/digital-wallet.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h2 align="center">FAZZPAY E-WALLET</h2>
+
+  <p align="center">
+    <a href="https://fazzpay-next.vercel.app/">View Demo</a>
+    ·
+    <a href="mailto:4fifbuchori@gmail.com">Report Bug</a>
+    ·
+    <a href="mailto:4fifbuchori@gmail.com">Request Feature</a>
+  </p>
+</div>
+
+## Documentation
+
+<img width="600" src="./images/screencapture/landing-page.png" alt="display-documentation">
+<img width="600" src="./images/screencapture/login-page.png" alt="display-documentation">
+<img width="600" src="./images/screencapture/dashboard-page.png" alt="display-documentation">
+<img width="600" src="./images/screencapture/profile-page.png" alt="display-documentation">
+<img width="600" src="./images/screencapture/transaction-find-user.png" alt="display-documentation">
+<img width="600" src="./images/screencapture/transaction-to-user.png" alt="display-documentation">
+<img width="600" src="./images/screencapture/transaction-issuccess.png" alt="display-documentation">
+<img width="600" src="./images/screencapture/topup.png" alt="display-documentation">

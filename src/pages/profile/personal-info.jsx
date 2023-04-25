@@ -75,10 +75,11 @@ function PersonalInfo() {
           <div className="flex-1 flex flex-col items-center rounded-3xl bg-white shadow py-9">
             <div className="w-full md:max-w-[70%] px-5 mr-auto">
               <h1 className="font-bold text-lg mb-5">Personal Information</h1>
-              <p className="text-grey mb-6">
+              <p className="text-grey">
                 We got your personal information from the sign up proccess. If
                 you want to make changes on your information, contact our
-                support.
+                support. If you want to change the first name or last name, just
+                click on the respective name column and make the changes.
               </p>
             </div>
             <span className="w-full flex flex-col p-5 gap-5">

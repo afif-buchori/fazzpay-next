@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import Link from "next/link";
 
 const BarChart = ({ listExpense, listIncome }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,8 +54,13 @@ const BarChart = ({ listExpense, listIncome }) => {
   }, [listExpense, listIncome, days]);
 
   return (
-    <div className="w-full">
-      <h2 className="text-sm text-center mb-4">Weekly Expenses and Income</h2>
+    <div className="w-full flex justify-center flex-col">
+      <Link
+        href={"/dashboard/details-diagram"}
+        className="btn btn-link btn-sm text-prime m-auto mb-2"
+      >
+        Weekly Expenses and Income
+      </Link>
       <canvas ref={chartContainer} className="w-full" />
     </div>
   );
