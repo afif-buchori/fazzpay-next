@@ -10,6 +10,7 @@ function SignUp() {
   const router = useRouter();
   const [showPass, setShowPass] = useState(false);
   const [isInvalid, setInvalid] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [msgFetch, setMsgFetch] = useState("");
   const [form, setForm] = useState({
@@ -19,6 +20,7 @@ function SignUp() {
     password: "",
   });
   const onChangeForm = (event) => {
+    setSuccess(false);
     if (event.target.name === "email") setInvalid(false);
     setForm((form) => {
       return { ...form, [event.target.name]: event.target.value };
@@ -32,9 +34,9 @@ function SignUp() {
       const result = await register(form, controller);
       // console.log(result);
       if (result.status === 200) {
+        setMsgFetch("Registration successful, please check your email.");
+        setSuccess(true);
         setLoading(false);
-        console.log("SUKSES");
-        router.push("/login");
       }
     } catch (error) {
       console.log(error);
@@ -125,12 +127,24 @@ function SignUp() {
                 />
                 <i className="icon-input bi bi-lock text-grey"></i>
               </label>
-              <p className="w-full text-center h-5 my-5 text-secondary font-semibold">
-                {isInvalid && msgFetch}
+              <p
+                className={`w-full text-center h-5 my-5 font-semibold ${
+                  isSuccess ? "text-green-500" : "text-secondary"
+                }`}
+              >
+                {isInvalid || (isSuccess && msgFetch)}
               </p>
               {isLoading ? (
                 <button className="btn loading bg-prime border-none text-white my-10">
                   Loading...
+                </button>
+              ) : isSuccess ? (
+                <button
+                  type="button"
+                  onClick={() => router.push("/login")}
+                  className="btn-prime my-10"
+                >
+                  Go Login
                 </button>
               ) : (
                 <button

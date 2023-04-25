@@ -60,7 +60,7 @@ function Createpin() {
     setPin(value);
     setInvalid(false);
   };
-  console.log(pin);
+  // console.log(pin);
   return (
     <Layout title="Create PIN">
       <div className="w-full flex flex-col md:flex-row">

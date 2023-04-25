@@ -32,7 +32,7 @@ function History() {
     const params = { page: metaPage, limit: metaLimit, filter };
     try {
       const result = await getHistories(token, params, controller);
-      console.log(result.data);
+      // console.log(result.data);
       if (result.status && result.status === 200) {
         setDataHistory(result.data.data);
         setTotalPage(result.data.pagination.totalPage);

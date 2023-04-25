@@ -8,7 +8,7 @@ function CardReceiver(props) {
   return (
     <Link
       href={`/transfer/${props.userId}`}
-      className="flex w-full rounded-xl shadow-lg px-5 py-2 hover:shadow-2xl hover:scale-105 transition-all cursor-pointer"
+      className="flex w-full rounded-xl shadow-lg px-5 py-2 hover:shadow-2xl hover:scale-[1.01] transition-all cursor-pointer"
     >
       <div className="avatar">
         <div className="w-16 mask mask-squircle">

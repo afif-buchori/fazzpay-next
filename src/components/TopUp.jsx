@@ -4,10 +4,14 @@ import { useSelector } from "react-redux";
 
 function TopUp({ isOpen, onClose }) {
   const controller = useMemo(() => new AbortController(), []);
-  const token = useSelector((state) => state.user.token);
+  const userState = useSelector((state) => state.user);
+  const token = userState.token;
+  const userPin = userState.data.pin;
+  const userPhone = userState.data.phone;
   const [isLoading, setLoading] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [isInvalid, setInvalid] = useState(false);
+  const [msgFetch, setMsgFetch] = useState("");
   const [canClose, setCanClose] = useState(false);
   const [linkPayment, setLinkPay] = useState("");
   const [valueTopup, setValueTopup] = useState("");
@@ -23,7 +27,11 @@ function TopUp({ isOpen, onClose }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (valueTopup < 10000) return setInvalid(true);
+    if (valueTopup < 10000) {
+      setInvalid(true);
+      setMsgFetch("The minimum amount is Rp. 10.000,-");
+      return;
+    }
     setLoading(true);
     const form = { amount: valueTopup };
     try {
@@ -36,6 +44,11 @@ function TopUp({ isOpen, onClose }) {
       }
     } catch (error) {
       console.log(error);
+      if (error.response.status && error.response.status === 400) {
+        setInvalid(true);
+        setMsgFetch(error.response.data.msg);
+        setLoading(false);
+      }
     }
   };
 
@@ -76,9 +89,7 @@ function TopUp({ isOpen, onClose }) {
                 </button>
               </div>
               {isInvalid ? (
-                <p className="text-secondary text-lg my-5">
-                  The minimum amount is Rp. 10.000,-
-                </p>
+                <p className="text-secondary text-lg my-5">{msgFetch}</p>
               ) : (
                 <p className="text-grey text-lg my-5">
                   Enter the amount of money, and click submit

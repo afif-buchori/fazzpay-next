@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 function TransferToUser({ isShow, onClose }, props) {
-  console.log(props);
+  // console.log(props);
   const balance = useSelector((state) => state.user.data.balance);
   const [isInvalid, setInvalid] = useState(false);
   const [msgInvalid, setMsgInvalid] = useState("Input over balance, ");

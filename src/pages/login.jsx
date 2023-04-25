@@ -48,9 +48,8 @@ function Login() {
         // console.log(resultProfile);
         dispatch(userAction.loginRedux(resultLogin.data.data));
         dispatch(userAction.getDataProfile(resultProfile.data.data));
-        if (resultLogin.data.data.pin === null)
-          return handleNavigate("/createpin");
-        handleNavigate("/dashboard");
+        if (resultLogin.data.data.pin === null) handleNavigate("/createpin");
+        else handleNavigate("/dashboard");
       }
     } catch (error) {
       console.log(error);
