@@ -8,16 +8,18 @@ function PublicRoute(WrappedComponent) {
     const isToken = useSelector((state) => state.user.token);
     const router = useRouter();
 
-    useEffect(() => {
-      if (isToken) {
-        router.push("/dashboard");
-      }
-    }, [isToken, router]);
+    if (isToken) {
+      router.push("/dashboard");
+      // return (
+      //   <div className="w-screen h-screen flex justify-center items-center">
+      //     <Loaders />;
+      //   </div>
+      // );
+    }
 
     if (!isToken) {
       return <WrappedComponent {...props} />;
     }
-    return <Loaders />;
   };
   return Auth;
 }

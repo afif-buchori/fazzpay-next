@@ -8,35 +8,44 @@ function PrivateRoute(WrappedComponent) {
     const isToken = useSelector((state) => state.user.token);
     const router = useRouter();
 
-    useEffect(() => {
-      if (!isToken) {
-        router.push("/login");
-      }
-    }, [isToken, router]);
+    if (!isToken) {
+      router.push("/login");
+      // return (
+      //   <div className="w-screen h-screen flex justify-center items-center">
+      //     <Loaders />;
+      //   </div>
+      // );
+    }
 
     if (isToken) {
       return <WrappedComponent {...props} />;
     }
-    return <Loaders />;
   };
+
   return Auth;
 }
+// function PrivateRoute(WrappedComponent) {
+//   const Auth = (props) => {
+//     const isToken = useSelector((state) => state.user.token);
+//     const router = useRouter();
 
-export default PrivateRoute;
+//     useEffect(() => {
+//       if (!isToken) {
+//         router.push("/login");
+//       }
+//     }, [isToken, router]);
 
-// function PrivateRoute({ children }) {
-//   const router = useRouter();
-//   const isToken = useSelector((state) => state.user.token);
-
-//   useEffect(() => {
-//     if (typeof window !== "undefined" && !isToken) {
-//       router.push("/login");
+//     if (isToken) {
+//       return <WrappedComponent {...props} />;
 //     }
-//   }, [isToken, router]);
+//     return (
+//       <div className="w-screen h-screen flex justify-center items-center">
+//         <Loaders />;
+//       </div>
+//     );
+//   };
 
-//   if (!isToken) return null;
-
-//   return children;
+//   return Auth;
 // }
 
-// export default PrivateRoute;
+export default PrivateRoute;

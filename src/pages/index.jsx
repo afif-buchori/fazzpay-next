@@ -3,40 +3,9 @@ import Comentary from "@/components/Pages/Comentary";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export default function Landing() {
-  const router = useRouter();
-  const [slide, setSlide] = useState(1);
-
-  const handleSlide = (info) => {
-    if (info === "left") {
-      if (slide === 1) setSlide(data.length);
-      else setSlide(slide - 1);
-    }
-    if (info === "right") {
-      if (slide === data.length) setSlide(1);
-      else setSlide(slide + 1);
-    }
-  };
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     handleSlide("right");
-  //   }, 3000);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [slide]);
-
-  const handleNavigate = (to) => {
-    router.push(to);
-  };
-
-  const slideClasses = [
-    "",
-    "right-0",
-    "right-[100%]",
-    "right-[200%]",
-    "right-[300%]",
-  ];
+export async function getServerSideProps() {
   const data = [
     {
       fullName: "Sherina Chaw",
@@ -62,6 +31,37 @@ export default function Landing() {
       comment:
         "“This is the most outstanding app that I’ve ever try in my live, this app is such an amazing masterpiece and it’s suitable for you who is bussy with their bussiness and must transfer money to another person aut there. Just try this app and see the power!”",
     },
+  ];
+  return {
+    props: { data },
+  };
+}
+
+export default function Landing({ data }) {
+  const router = useRouter();
+  const [slide, setSlide] = useState(1);
+
+  const handleSlide = (info) => {
+    if (info === "left") {
+      if (slide === 1) setSlide(data.length);
+      else setSlide(slide - 1);
+    }
+    if (info === "right") {
+      if (slide === data.length) setSlide(1);
+      else setSlide(slide + 1);
+    }
+  };
+
+  const handleNavigate = (to) => {
+    router.push(to);
+  };
+
+  const slideClasses = [
+    "",
+    "right-0",
+    "right-[100%]",
+    "right-[200%]",
+    "right-[300%]",
   ];
 
   return (

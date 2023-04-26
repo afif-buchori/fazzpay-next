@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./public/digital-wallet.png" alt="Logo" width="80" height="80">
+    <img src="./public/digital-wallet.png" alt="Logo" width="120" height="120">
 
   <h2 align="center">FAZZPAY E-WALLET</h2>
 
@@ -17,6 +17,7 @@
 FazzPay E-Wallet is a web-based application for storing and managing electronic money.
 
 ## Build With
+
 This application is built using React.js, Next.js, Redux, axios, Lodash, Chart.js, React-Pin-Field, TailwindCSS, and DaisyUI.
 <img src="https://skillicons.dev/icons?i=react,next,javascript,html,css,redux,tailwind,vercel" />
 

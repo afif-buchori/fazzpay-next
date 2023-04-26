@@ -20,7 +20,7 @@ function ChangePin() {
         <main className="w-full max-w-notebook flex gap-7 px-4 md:px-10% md:py-7">
           <NavSide titlePage="dashboard" />
 
-          <div className="flex-1 flex flex-col items-center rounded-3xl bg-white shadow py-6 px-16">
+          <div className="flex-1 flex flex-col items-center rounded-3xl bg-white shadow py-6 px-3 md:px-16">
             <DashbDiagram
               userId={userId}
               token={token}
