@@ -17,9 +17,9 @@ function Logout({ logoutOpen, logoutClose }) {
       const result = await logout(token, controller);
       // console.log(result);
       if (result.status && result.status === 200) {
+        router.push("/");
         dispatch(userAction.logoutRedux());
         setLoading(false);
-        router.push("/");
       }
     } catch (error) {
       console.log(error);

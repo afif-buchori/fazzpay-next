@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./public/digital-wallet.png" alt="Logo" width="120" height="120">
+<img src="./public/digital-wallet.png" alt="Logo" width="120" height="120">
 
   <h2 align="center">FAZZPAY E-WALLET</h2>
 
@@ -19,7 +19,10 @@ FazzPay E-Wallet is a web-based application for storing and managing electronic 
 ## Build With
 
 This application is built using React.js, Next.js, Redux, axios, Lodash, Chart.js, React-Pin-Field, TailwindCSS, and DaisyUI.
-<img src="https://skillicons.dev/icons?i=react,next,javascript,html,css,redux,tailwind,vercel" />
+
+<div align="center">
+  <img src="https://skillicons.dev/icons?i=react,next,javascript,html,css,redux,tailwind,vercel" />
+</div>
 
 ## Features
 
@@ -46,11 +49,13 @@ If you would like to contribute to this project, please send a pull request to t
 
 ## Documentation
 
-<img width="600" src="./public/images/screencapture/landing-page.png" alt="display-documentation">
-<img width="600" src="./public/images/screencapture/login-page.png" alt="display-documentation">
-<img width="600" src="./public/images/screencapture/dashboard-page.png" alt="display-documentation">
-<img width="600" src="./public/images/screencapture/profile-page.png" alt="display-documentation">
-<img width="600" src="./public/images/screencapture/transaction-find-user.png" alt="display-documentation">
-<img width="600" src="./public/images/screencapture/transaction-to-user.png" alt="display-documentation">
-<img width="600" src="./public/images/screencapture/transaction-issuccess.png" alt="display-documentation">
-<img width="600" src="./public/images/screencapture/topup.png" alt="display-documentation">
+<div align="center">
+  <img width="600" src="./public/images/screencapture/landing-page.png" alt="display-documentation">
+  <img width="600" src="./public/images/screencapture/login-page.png" alt="display-documentation">
+  <img width="600" src="./public/images/screencapture/dashboard-page.png" alt="display-documentation">
+  <img width="600" src="./public/images/screencapture/profile-page.png" alt="display-documentation">
+  <img width="600" src="./public/images/screencapture/transaction-find-user.png" alt="display-documentation">
+  <img width="600" src="./public/images/screencapture/transaction-to-user.png" alt="display-documentation">
+  <img width="600" src="./public/images/screencapture/transaction-issuccess.png" alt="display-documentation">
+  <img width="600" src="./public/images/screencapture/topup.png" alt="display-documentation">
+</div>
